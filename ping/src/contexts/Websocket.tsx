@@ -7,7 +7,7 @@ export interface IWebSocketContext {
 	setWebSocket: React.Dispatch<React.SetStateAction<Socket<DefaultEventsMap, DefaultEventsMap>>>;
 }
 
-const socket = io("http://localhost:3001", {
+const socket = io("http://localhost:3001/game", {
 	transports: ['websocket'], //! Force the use of WebSocket
 });
 

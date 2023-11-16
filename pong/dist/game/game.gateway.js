@@ -13,13 +13,15 @@ exports.GameGateway = void 0;
 const common_1 = require("@nestjs/common");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
+const game_service_1 = require("./game.service");
 let GameGateway = class GameGateway {
-    constructor() {
+    constructor(gameService) {
+        this.gameService = gameService;
         this.logger = new common_1.Logger('new one');
     }
+    ;
     onModuleInit() {
         this.server.on("connection", (socket) => {
-            this.socketId = socket.id;
             console.log("connection : ", socket.id);
         });
     }
@@ -28,9 +30,9 @@ let GameGateway = class GameGateway {
         console.log('----> New Connection');
     }
     handleJoinRoom(client, data) {
-        console.log(`id : ${client.id}, $ data: ${data}`);
-        data = 'hello';
-        this.server.to(client.id).emit('joined', { data, socketId: this.socketId });
+        const updatedData = this.gameService.joinRoom(client.id);
+        console.log(`id: ${client.id}, updated data: ${JSON.stringify(updatedData)}`);
+        this.server.to(client.id).emit('joined', { data: updatedData });
     }
 };
 exports.GameGateway = GameGateway;
@@ -41,10 +43,11 @@ __decorate([
 __decorate([
     (0, websockets_1.SubscribeMessage)('JoinRoom'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [socket_io_1.Socket, String]),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", void 0)
 ], GameGateway.prototype, "handleJoinRoom", null);
 exports.GameGateway = GameGateway = __decorate([
-    (0, websockets_1.WebSocketGateway)()
+    (0, websockets_1.WebSocketGateway)({ cors: 'http://localhost:3000', namespace: '/game' }),
+    __metadata("design:paramtypes", [game_service_1.GameService])
 ], GameGateway);
 //# sourceMappingURL=game.gateway.js.map

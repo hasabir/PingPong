@@ -1,17 +1,22 @@
-import { Logger } from '@nestjs/common';
+import { Logger, OnModuleInit } from '@nestjs/common';
+
 import { MessageBody,
 		OnGatewayInit,
 		SubscribeMessage,
 		WebSocketGateway,
 		WebSocketServer } from '@nestjs/websockets';
-import {Server, Socket} from 'socket.io'
 
-// @WebSocketGateway(8000, {cors: 'http://localhost:3001', namespace: '/game'})
-//! every front-end client will be able to connect to this gateway
+import {Server, Socket} from 'socket.io';
 
-@WebSocketGateway()
-export class GameGateway  {
+import {Data, Room} from '../interfaces/game.interface';
+
+import { GameService } from './game.service'
+
+@WebSocketGateway({cors: 'http://localhost:3000', namespace: '/game'})
+export class GameGateway implements OnModuleInit {
 	
+	constructor(private gameService: GameService){};
+
 	@WebSocketServer() server: Server;
 	private logger:Logger = new  Logger('new one');
 
@@ -19,7 +24,6 @@ export class GameGateway  {
 	socketId : string;
 	onModuleInit() {
 		this.server.on("connection", (socket:Socket)=>{
-			this.socketId = socket.id;
 			console.log("connection : ", socket.id);
 		})
 	}
@@ -30,12 +34,11 @@ export class GameGateway  {
 	}
 
 	@SubscribeMessage('JoinRoom')
-	handleJoinRoom(client: Socket, data: string): void{
-		console.log(`id : ${client.id}, $ data: ${data}`);
-		data = 'hello';
-		this.server.to(client.id).emit('joined',{ data, socketId: this.socketId });
+	handleJoinRoom(client: Socket, data: any) : void{		
+		
+		const updatedData: Data = this.gameService.joinRoom(client.id);
 
+		console.log(`id: ${client.id}, updated data: ${JSON.stringify(updatedData)}`);
+		this.server.to(client.id).emit('joined', { data: updatedData});
 	}
 }
-// client.join(room);
-// this.server.to(room).emit('joined', `Player ${client.id} has joind the room`);

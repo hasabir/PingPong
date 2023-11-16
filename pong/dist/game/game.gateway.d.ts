@@ -1,9 +1,13 @@
+import { OnModuleInit } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
-export declare class GameGateway {
+import { GameService } from './game.service';
+export declare class GameGateway implements OnModuleInit {
+    private gameService;
+    constructor(gameService: GameService);
     server: Server;
     private logger;
     socketId: string;
     onModuleInit(): void;
     afterInit(server: Server): void;
-    handleJoinRoom(client: Socket, data: string): void;
+    handleJoinRoom(client: Socket, data: any): void;
 }
