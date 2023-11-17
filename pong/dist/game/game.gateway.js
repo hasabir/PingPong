@@ -29,10 +29,10 @@ let GameGateway = class GameGateway {
         this.logger.log('Game is starting soon');
         console.log('----> New Connection');
     }
-    handleJoinRoom(client, data) {
-        const updatedData = this.gameService.joinRoom(client.id);
-        console.log(`id: ${client.id}, updated data: ${JSON.stringify(updatedData)}`);
-        this.server.to(client.id).emit('joined', { data: updatedData });
+    handleJoinRoom(socket, data) {
+        const new_room = this.gameService.joinRoom(socket.id);
+        socket.join(new_room.name);
+        this.server.to(new_room.name).emit('joined', { data: new_room });
     }
 };
 exports.GameGateway = GameGateway;

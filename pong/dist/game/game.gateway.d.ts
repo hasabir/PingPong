@@ -9,5 +9,5 @@ export declare class GameGateway implements OnModuleInit {
     socketId: string;
     onModuleInit(): void;
     afterInit(server: Server): void;
-    handleJoinRoom(client: Socket, data: any): void;
+    handleJoinRoom(socket: Socket, data: any): void;
 }

@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": ["p5"],
+    "types": [
+      "p5"
+    ],
     "lib": [
       "dom",
       "dom.iterable",
@@ -19,7 +21,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": [
     "src"

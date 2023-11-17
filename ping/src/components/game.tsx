@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useWebSocketContext } from '../contexts/Websocket';
 
 // import sketch from './sketch';
@@ -6,8 +6,10 @@ import { useWebSocketContext } from '../contexts/Websocket';
 
 function Message({data}: {data :any})
 {
-	if (data.status)
-		return <h1><center>You joined the room</center></h1>
+	if (data.status_user1 && !data.status_user2)
+		return <h1><center>Waiting for user 2 to join .....</center></h1>
+	if (data.status_user2)
+		return <h1><center>User 2 You joined the room</center></h1>
 	return <h2><center>click join to join the room</center></h2>
 }
 
@@ -18,23 +20,27 @@ export const Game = () => {
 	const [data, setData] = useState({});
 	const socket = useWebSocketContext();
 
-
+	
 	useEffect(() => {
 		socket.webSocket.on('connect', () => {
 			console.log('connected !');
 		});
-	
 		socket.webSocket.on('joined', ({data}) => {
 			console.log(`I am ${JSON.stringify(data)}`);
 			setData(data);
 		});
+		
 		return () => {
 			socket.webSocket.off('joined');
 			socket.webSocket.off('connect');
 		};
 	}, [socket])
+	
 
 
+	// socket.webSocket.on('message', () => {
+	// 	console.log("congratulation you all joined the room");
+	// });
 	const handleJoinRoom = () => {
 		// const updatedData = { value: 'test' };
 		// setData(updatedData);
