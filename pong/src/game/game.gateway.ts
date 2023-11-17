@@ -38,19 +38,13 @@ export class GameGateway implements OnModuleInit {
 		
 		const new_room: Room = this.gameService.joinRoom(socket.id);
 
-		// console.log(`id: ${socket.id}, updated data: ${JSON.stringify(updatedData)}`);
 		socket.join(new_room.name);
 		this.server.to(new_room.name).emit('joined', { data: new_room});
-		// this.server.to(socket.id).emit('joined', { data: new_room});
-
 	}
-	
 
-	// brodcastMessage(socket: Socket, new_room: Room) : void {
-	// 	if (new_room.status_user1 && new_room.status_user2)
-	// 	{
-	// 		socket.broadcast.to(new_room.name).emit( 'message' );
-	// 	}
+	// initGame(socket: Socket, room: Room): void {
+	// 	if (room)
 	// }
+	
 
 }

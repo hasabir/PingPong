@@ -1,25 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useWebSocketContext } from '../contexts/Websocket';
 
-// import sketch from './sketch';
-// import p5 from 'p5';
+import sketch from './sketch';
+import p5 from 'p5';
 
 function Message({data}: {data :any})
 {
 	if (data.status_user1 && !data.status_user2)
-		return <h1><center>Waiting for user 2 to join .....</center></h1>
+	return <h1><center>Waiting for user 2 to join .....</center></h1>
 	if (data.status_user2)
-		return <h1><center>User 2 You joined the room</center></h1>
+	{
+		new p5(sketch);
+		return <h1><center></center></h1>
+	}
 	return <h2><center>click join to join the room</center></h2>
 }
 
 
 export const Game = () => {
-
+	
 	// const [room, setRoom] = useState('');
 	const [data, setData] = useState({});
 	const socket = useWebSocketContext();
-
+	
 	
 	useEffect(() => {
 		socket.webSocket.on('connect', () => {
@@ -37,14 +40,12 @@ export const Game = () => {
 	}, [socket])
 	
 
-
-	// socket.webSocket.on('message', () => {
-	// 	console.log("congratulation you all joined the room");
-	// });
 	const handleJoinRoom = () => {
-		// const updatedData = { value: 'test' };
-		// setData(updatedData);
 		socket.webSocket.emit('JoinRoom', data);
+	}
+
+	const initGame = () => {
+		// if (data.user)
 	}
 
 	return(
