@@ -4,17 +4,24 @@ import { useWebSocketContext } from '../contexts/Websocket';
 import sketch from './sketch';
 import p5 from 'p5';
 
-function Message({data}: {data :any})
-{
-	if (data.status_user1 && !data.status_user2)
-	return <h1><center>Waiting for user 2 to join .....</center></h1>
-	if (data.status_user2)
-	{
-		new p5(sketch);
-		return <h1><center></center></h1>
+interface MessageProps {
+	data: any;
+	socket: any; 
+}//?
+
+function Message({ data, socket }: MessageProps) {
+	if (data.status_user1 && !data.status_user2) {
+	  return <h1><center>Waiting for user 2 to join .....</center></h1>;
 	}
-	return <h2><center>click join to join the room</center></h2>
-}
+  
+	if (data.status_user2) {
+	  new p5(sketch); 
+	  socket.webSocket.emit('Init', data);
+	  return null;
+	}
+  
+	return <h2><center>Click join to join the room</center></h2>;
+  }
 
 
 export const Game = () => {
@@ -54,7 +61,7 @@ export const Game = () => {
 			<h1>GAME</h1>
       		<button onClick={handleJoinRoom}>Join Room</button>
 			
-			<Message data={data}/>
+			<Message data={data} socket={socket}/>
 			</center>
 		</div>
 	);
