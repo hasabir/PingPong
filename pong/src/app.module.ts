@@ -17,10 +17,11 @@
 import { Module } from '@nestjs/common';
 import { GameGateway } from './game/game.gateway';
 import { GameService } from './game/game.service';
+import { GameLogicService } from './game/game-logic.service';
 
 @Module({
   imports: [],
   controllers: [],
-  providers: [GameGateway, GameService],
+  providers: [GameGateway, GameService, GameLogicService],
 })
 export class AppModule {}

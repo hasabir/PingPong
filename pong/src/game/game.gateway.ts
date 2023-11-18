@@ -11,11 +11,13 @@ import {Server, Socket} from 'socket.io';
 import {Data, Room} from '../interfaces/game.interface';
 
 import { GameService } from './game.service'
+import { GameLogicService } from './game-logic.service';
 
 @WebSocketGateway({cors: 'http://localhost:3000', namespace: '/game'})
 export class GameGateway implements OnModuleInit {
 	
-	constructor(private gameService: GameService){};
+	constructor(private gameService: GameService,
+			private gameLogicService : GameLogicService){};
 
 	@WebSocketServer() server: Server;
 	private logger:Logger = new  Logger('new one');
@@ -42,6 +44,15 @@ export class GameGateway implements OnModuleInit {
 		this.server.to(new_room.name).emit('joined', { data: new_room});
 	}
 
+	@SubscribeMessage('Init')
+	initGame(socket: Socket, data: any){
+		
+		console.log('\x1b[36m%s\x1b[0m', 'initing game ...');
+
+		console.log(`I am ${JSON.stringify(data)}`);
+		// this.server.to(data.name).emit('initCanvas', data);
+		this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data))
+	}
 	// initGame(socket: Socket, room: Room): void {
 	// 	if (room)
 	// }

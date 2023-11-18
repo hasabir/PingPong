@@ -36,9 +36,14 @@ export const Game = () => {
 			console.log('connected !');
 		});
 		socket.webSocket.on('joined', ({data}) => {
-			console.log(`I am ${JSON.stringify(data)}`);
+			// console.log(`I am ${JSON.stringify(data)}`);
 			setData(data);
 		});
+		socket.webSocket.on('initCanvas', (data) => {
+			// console.log('\x1b[36m%s\x1b[0m');
+			console.log(`I am ${JSON.stringify(data)}`);
+			// setData(data);
+		})
 		
 		return () => {
 			socket.webSocket.off('joined');

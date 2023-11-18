@@ -9,6 +9,11 @@ export interface Room{
 	user2?: Data;
 	status_user1: boolean;
 	status_user2: boolean;
+	canvas?: Canvas;
 }
 
 
+export interface Canvas{
+	width: number;
+	height: number;
+}
