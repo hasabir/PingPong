@@ -53,7 +53,7 @@ export class GameService {
 	  
 
 	joinRoom(clientId: string){
-		const updatedData: Data = { id: clientId, status: true};
+		const updatedData: Data = { id: clientId, status: false};
 		
 
 		if ((this.rooms.length === 0 

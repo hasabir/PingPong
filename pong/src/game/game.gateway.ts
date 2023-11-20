@@ -46,16 +46,15 @@ export class GameGateway implements OnModuleInit {
 
 	@SubscribeMessage('Init')
 	initGame(socket: Socket, data: any){
-		
-		console.log('\x1b[36m%s\x1b[0m', 'initing game ...');
-
-		console.log(`I am ${JSON.stringify(data)}`);
-		// this.server.to(data.name).emit('initCanvas', data);
 		this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data))
 	}
-	// initGame(socket: Socket, room: Room): void {
-	// 	if (room)
-	// }
-	
+
+	@SubscribeMessage('keydown')
+	playGame(socket: Socket, data: any){
+		console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} `);
+	}
+
+
+
 
 }

@@ -1,55 +1,4 @@
-// import React from 'react'
-// import Sketch from 'react-p5'
 import * as p5 from 'p5';
-
-class Paddle
-{
-	width = 30;
-	height = 100;
-	strock_width = 1;
-	score = 0;
-	color = [255, 255, 255];
-	x : number;
-	y : number;
-	constructor(x:number, y:number)
-	{
-		this.x = x;
-		this.y = y;
-	}
-}
-
-class Canvas
-{
-	width: number;
-	height: number;
-	color: number[];
-	stroke_width: number;
-	constructor(width: number, height: number, color: number[], strock_width: number)
-	{
-
-		this.width = width;
-		this.height = height;
-		this.color = color;
-		this.stroke_width = strock_width;
-	}
-}
-
-class Net
-{
-	width: number;
-	height: number;
-	x: number;
-	y: number;
-	color: number[];
-	constructor(x: number, y: number, width: number, height: number, color: number[])
-	{
-		this.x =  x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.color = color;
-	}
-}
 
 function drawRec(rec: any, p5: p5)
 {
@@ -68,17 +17,17 @@ function drawNet(canvas: any, net: any, p5: p5)
 	}
 }
 
-let canvas = new Canvas(600, 400, [0,0,0], 0);
-let user = new Paddle(0, canvas.height/3);
-let computer = new Paddle(canvas.width - 29, canvas.height/3);
-let net = new Net(canvas.width/2, 0, 2, 10, [255,255,255]);
+function drawBall(canvas: any, ball: any, p5: p5)
+{
+	p5.fill(ball.color[0], ball.color[1], ball.color[2]);
+	p5.circle(ball.x, ball.y, ball.radius * 2);
+}
+
+var sketch = function( p :p5, data: any) {
 
 
-
-var sketch = function( p :p5 ) {
-	
 	p.setup = function() {
-		var cnv = p.createCanvas(canvas.width, canvas.height).id('canvas');
+		var cnv = p.createCanvas(data.canvas.width, data.canvas.height).id('canvas');
 		var x = (window.innerWidth - 600) / 2;
 		var y = (window.innerHeight - 400) / 2;
 		cnv.position(x, y);
@@ -86,10 +35,10 @@ var sketch = function( p :p5 ) {
 	
 	p.draw = function() {
 		p.background(0);
-		drawRec(user, p);
-		drawRec(computer, p);
-		drawNet(canvas, net, p);
+		drawRec(data.paddle_1, p);
+		drawRec(data.paddle_2, p);
+		drawNet(data.canvas, data.net, p);
+		drawBall(data.canvas, data.ball, p);
 		};
 };
 export default sketch;
-	

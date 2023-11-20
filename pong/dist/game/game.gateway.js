@@ -37,9 +37,10 @@ let GameGateway = class GameGateway {
         this.server.to(new_room.name).emit('joined', { data: new_room });
     }
     initGame(socket, data) {
-        console.log('\x1b[36m%s\x1b[0m', 'initing game ...');
-        console.log(`I am ${JSON.stringify(data)}`);
         this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data));
+    }
+    playGame(socket, data) {
+        console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} `);
     }
 };
 exports.GameGateway = GameGateway;
@@ -59,6 +60,12 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", void 0)
 ], GameGateway.prototype, "initGame", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('keydown'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", void 0)
+], GameGateway.prototype, "playGame", null);
 exports.GameGateway = GameGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: 'http://localhost:3000', namespace: '/game' }),
     __metadata("design:paramtypes", [game_service_1.GameService,
