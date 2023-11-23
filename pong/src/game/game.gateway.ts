@@ -53,8 +53,4 @@ export class GameGateway implements OnModuleInit {
 	playGame(socket: Socket, data: any){
 		console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} `);
 	}
-
-
-
-
 }

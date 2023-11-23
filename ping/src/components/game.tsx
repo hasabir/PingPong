@@ -40,7 +40,7 @@ export const Game = () => {
 		});
 		
 		socket.webSocket.on('initCanvas', (data) => {
-			console.log(`I am ${JSON.stringify(data)}`);
+			console.log(`from init canvas: ${JSON.stringify(data)}`);
 	  
 			if (!data.gameInitialized) {
 			  setData((prevData) => ({
@@ -51,22 +51,21 @@ export const Game = () => {
 			}
 		  });
 		
-		// const handleKeyDown = (event : any) => {
-		// 	if (event.key === 'p')
-		// 		handlePlayGame(data);
-		// };
+		const handleKeyDown = (event : any) => {
+			console.log(`I am ${JSON.stringify(data)}`);
+			if (event.key === 'p')
+				handlePlayGame(data);
+		};
 
-		window.addEventListener('keydown', handlePlayGame);
-		// window.addEventListener('keydown', handleKeyDown);
-
+		window.addEventListener('keydown',(event: any) => handleKeyDown(event));
+		
 		return () => {
 			socket.webSocket.off('joined');
 			socket.webSocket.off('connect');
 			socket.webSocket.off('initCanvas');
-			window.removeEventListener('keydown', handlePlayGame);
-			// window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keydown', (event: any) => handleKeyDown(event));
 		};
-	}, [socket])
+	}, [socket, data])
 	
 	
 	const handleJoinRoom = () => {
@@ -77,8 +76,12 @@ export const Game = () => {
 		new p5((p) => sketch(p, data));
 	}
 	
-	const handlePlayGame = (event : any) => {
-		if (event.key === 'p')
+
+
+
+	const handlePlayGame = (data: any) => {
+		// if (event.key === 'p')
+
 			socket.webSocket.emit('keydown', data);
 	}
 
