@@ -1,9 +1,7 @@
-import * as p5 from 'p5';
 
-// export interface test extends p5{
-// 	updateSketch(data: any): void;
-// }
-
+import p5 from 'p5';
+import React from 'react';
+import Sketch from 'react-p5';
 
 function drawRec(rec: any, p5: p5)
 {
@@ -28,26 +26,28 @@ function drawBall(canvas: any, ball: any, p5: p5)
 	p5.circle(ball.x, ball.y, ball.radius * 2);
 }
 
-var sketch = function( p :p5, data: any) {
 
+function GameSketch(data: any) {
+	console.log(`I am ${JSON.stringify(data)}`);
 
-	p.setup = function() {
-		var cnv = p.createCanvas(data.canvas.width, data.canvas.height).id('canvas');
-		var x = (window.innerWidth - 600) / 2;
-		var y = (window.innerHeight - 400) / 2;
+	const setup = (p: p5) => {
+		const cnv = p.createCanvas(data.canvas.width, data.canvas.height).id('canvas');
+		const x = (window.innerWidth - 600) / 2;
+		const y = (window.innerHeight - 400) / 2;
 		cnv.position(x, y);
-	};
-	
-	p.draw = function() {
+    }
+
+    const draw = (p: p5) => {
 		p.background(0);
 		drawRec(data.paddle_1, p);
 		drawRec(data.paddle_2, p);
 		drawNet(data.canvas, data.net, p);
 		drawBall(data.canvas, data.ball, p);
-	};
+    }
 
-	// p.updateSketch = function(){
+    return (
+        <Sketch setup={setup} draw={draw} />
+    )
+}
 
-	// }
-};
-export default sketch;
+export default GameSketch;
