@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useWebSocketContext } from '../contexts/Websocket';
 
 import sketch from './sketch';
@@ -24,77 +24,138 @@ function Message({ data, socket }: Room) {
 	return <h2><center>Click join to join the room</center></h2>;
   }
 
-export const Game = () => {
-	
+
+  export const Game = () => {
 	const [data, setData] = useState({});
 	const socket = useWebSocketContext();
-	
-	
-	useEffect(() => {
-		socket.webSocket.on('connect', () => {
-			console.log('connected !');
-		});
-
-		socket.webSocket.on('joined', ({data}) => {
-			setData(data);
-		});
-		
-		socket.webSocket.on('initCanvas', (data) => {
-			console.log(`from init canvas: ${JSON.stringify(data)}`);
-	  
-			if (!data.gameInitialized) {
-			  setData((prevData) => ({
-				...prevData,
-				gameInitialized: true,
-			  }));
-			  initGame(data);
-			}
-		  });
-		
-		const handleKeyDown = (event : any) => {
-			console.log(`I am ${JSON.stringify(data)}`);
-			if (event.key === 'p')
-				handlePlayGame(data);
-		};
-
-		window.addEventListener('keydown',(event: any) => handleKeyDown(event));
-		
-		return () => {
-			socket.webSocket.off('joined');
-			socket.webSocket.off('connect');
-			socket.webSocket.off('initCanvas');
-			window.removeEventListener('keydown', (event: any) => handleKeyDown(event));
-		};
-	}, [socket, data])
-	
-	
+  
 	const handleJoinRoom = () => {
-		socket.webSocket.emit('JoinRoom', data);
-	}
-	
-	const initGame = (data: any) => {
-		new p5((p) => sketch(p, data));
-	}
-	
-
-
-
-	const handlePlayGame = (data: any) => {
-		// if (event.key === 'p')
-
-			socket.webSocket.emit('keydown', data);
-	}
-
-	return(
-		<div>
-			<center>
-			<h1>GAME</h1>
-      		<button onClick={handleJoinRoom}>Join Room</button>
-			<Message data={data} socket={socket}/>
-			</center>
-		</div>
+	  socket.webSocket.emit('JoinRoom', data);
+	};
+  
+	const initGame = (data : any) => {
+	  new p5((p) => sketch(p, data));
+	};
+  
+	const handleKeyDown = useCallback(
+	  (event : any) => {
+		if (event.key === 'p') {
+		  socket.webSocket.emit('keydown', data);
+		  console.log(`I am ${JSON.stringify(data)}`);
+		}
+	  },
+	  [socket, data] // Dependencies for useCallback
 	);
-}
+  
+	useEffect(() => {
+	  socket.webSocket.on('connect', () => {
+		console.log('connected !');
+	  });
+  
+	  socket.webSocket.on('joined', ({ data }) => {
+		setData(data);
+	  });
+  
+	  socket.webSocket.on('initCanvas', (data) => {
+		console.log(`from init canvas`);
+  
+		if (!data.gameInitialized) {
+		  setData((prevData) => ({
+			...prevData,
+			gameInitialized: true,
+		  }));
+		  initGame(data);
+		}
+	  });
+  
+	  window.addEventListener('keydown', handleKeyDown);
+  
+	  return () => {
+		socket.webSocket.off('joined');
+		socket.webSocket.off('connect');
+		socket.webSocket.off('initCanvas');
+		window.removeEventListener('keydown', handleKeyDown);
+	  };
+	}, [socket, data, handleKeyDown]);
+  
+	return (
+	  <div>
+		<center>
+		  <h1>GAME</h1>
+		  <button onClick={handleJoinRoom}>Join Room</button>
+		  <Message data={data} socket={socket} />
+		</center>
+	  </div>
+	);
+  };
+  
+
+// export const Game = () => {
+	
+// 	const [data, setData] = useState({});
+// 	const socket = useWebSocketContext();
+	
+	
+// 	useEffect(() => {
+// 		socket.webSocket.on('connect', () => {
+// 			console.log('connected !');
+// 		});
+
+// 		socket.webSocket.on('joined', ({data}) => {
+// 			setData(data);
+// 		});
+		
+// 		socket.webSocket.on('initCanvas', (data) => {
+// 			console.log(`from init canvas`);
+	  
+// 			if (!data.gameInitialized) {
+// 			  setData((prevData) => ({
+// 				...prevData,
+// 				gameInitialized: true,
+// 			  }));
+// 			  initGame(data);
+// 			}
+// 		  });
+
+// 		window.addEventListener('keydown',(event: any) => handleKeyDown(event));
+		
+// 		return () => {
+// 			socket.webSocket.off('joined');
+// 			socket.webSocket.off('connect');
+// 			socket.webSocket.off('initCanvas');
+// 			window.removeEventListener('keydown', (event: any) => handleKeyDown(event));
+// 		};
+// 	}, [socket, data])
+	
+	
+// 	const handleJoinRoom = () => {
+// 		socket.webSocket.emit('JoinRoom', data);
+// 	}
+	
+// 	const initGame = (data: any) => {
+// 		new p5((p) => sketch(p, data));
+// 	}
+	
+
+// 	const handleKeyDown = (event : any) => {
+// 		if (event.key === 'p')
+// 		{
+// 			socket.webSocket.emit('keydown', data);
+// 			console.log(`I am ${JSON.stringify(data)}`);
+			
+// 		}
+// 	};
+
+// 	return(
+// 		<div>
+// 			<center>
+// 			<h1>GAME</h1>
+//       		<button onClick={handleJoinRoom}>Join Room</button>
+// 			<Message data={data} socket={socket}/>
+// 			</center>
+// 		</div>
+// 	);
+// }
 
 
 

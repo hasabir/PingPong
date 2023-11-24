@@ -40,7 +40,7 @@ let GameGateway = class GameGateway {
         this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data));
     }
     playGame(socket, data) {
-        console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} `);
+        console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
     }
 };
 exports.GameGateway = GameGateway;
