@@ -52,6 +52,9 @@ export class GameGateway implements OnModuleInit {
 	@SubscribeMessage('keydown')
 	playGame(socket: Socket, data: any){
 		console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
+		console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
+		// console.log('')
+		this.server.to(data.name).emit('Play', this.gameLogicService.game(data))
 	}
 }
 

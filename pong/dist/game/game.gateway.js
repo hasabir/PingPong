@@ -41,6 +41,8 @@ let GameGateway = class GameGateway {
     }
     playGame(socket, data) {
         console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
+        console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
+        this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
     }
 };
 exports.GameGateway = GameGateway;

@@ -1,5 +1,10 @@
 import * as p5 from 'p5';
 
+// export interface test extends p5{
+// 	updateSketch(data: any): void;
+// }
+
+
 function drawRec(rec: any, p5: p5)
 {
 	p5.stroke(0);
@@ -39,6 +44,10 @@ var sketch = function( p :p5, data: any) {
 		drawRec(data.paddle_2, p);
 		drawNet(data.canvas, data.net, p);
 		drawBall(data.canvas, data.ball, p);
-		};
+	};
+
+	// p.updateSketch = function(){
+
+	// }
 };
 export default sketch;
