@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React,  { useCallback, useEffect, useState } from 'react';
 import { useWebSocketContext } from '../contexts/Websocket';
 
 // import sketch from './sketch';
@@ -6,6 +6,7 @@ import { useWebSocketContext } from '../contexts/Websocket';
 // import SketchComponent from './sketch';
 // import P5Sketch from './sketch';
 import GameSketch from './sketch';
+
 
 export interface Room {
 	data: any;
@@ -33,6 +34,8 @@ type GameData = {
     // Add other properties as needed
 };
 
+// const LazyGameSketch = React.lazy(() => import('./sketch'));
+
 export const Game = () => {
 
 	const [data, setData] = useState<GameData>({
@@ -58,7 +61,7 @@ export const Game = () => {
 			// canvas = new p5((p) => sketch(p, data));
 			// setData(data);
 			socket.webSocket.emit('keydown', data);
-		}, [socket.setWebSocket]
+		}, [socket.webSocket]
 	);
 	
 	// const initGame = (data: any) => {
@@ -122,8 +125,7 @@ return (
 				</div>
 			) : (
 				<div>
-					{/* <h1>I am supose to runder the game now</h1> */}
-					<GameSketch data={data} />
+					<GameSketch data={data} socket={socket}/>
 				</div>
 			)}
 		</center>

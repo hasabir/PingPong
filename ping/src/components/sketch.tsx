@@ -1,6 +1,6 @@
 
 import p5 from 'p5';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sketch from 'react-p5';
 
 function drawRec(rec: any, p5: p5)
@@ -27,10 +27,30 @@ function drawBall(canvas: any, ball: any, p5: p5)
 }
 
 
-function GameSketch(data: any) {
-	console.log(`I am ${JSON.stringify(data)}`);
+// function GameSketch(data: any) {
+// 	// console.log(`I am ${JSON.stringify(data)}`);
+
+// function GameSketch({ data }: { data: any }, socket: any) {
+function GameSketch({ data, socket } : any) {
+    useEffect(() => {
+        // This code will run after the component has been rendered and state is updated
+        // console.log('Effect: ', data);
+        // if (data.canvas) {
+        //     console.log('Canvas: ', data.canvas);
+            // Add your canvas setup logic here
+            // const cnv = data.canvas ? p.createCanvas(data.canvas.width, data.canvas.height).id('canvas') : null;
+            // const x = (window.innerWidth - 600) / 2;
+            // const y = (window.innerHeight - 400) / 2;
+            // if (cnv) {
+            //     cnv.position(x, y);
+            // }
+        // }
+    }, [data]);
 
 	const setup = (p: p5) => {
+		console.log(`I am ${JSON.stringify(data)}`);
+		if (data.canvas !== undefined)
+			console.log(`------------------> ${data.canvas}`)
 		const cnv = p.createCanvas(data.canvas.width, data.canvas.height).id('canvas');
 		const x = (window.innerWidth - 600) / 2;
 		const y = (window.innerHeight - 400) / 2;
