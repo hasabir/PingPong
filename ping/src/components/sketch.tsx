@@ -1,6 +1,6 @@
 
 import p5 from 'p5';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sketch from 'react-p5';
 
 function drawRec(rec: any, p5: p5)
@@ -32,25 +32,21 @@ function drawBall(canvas: any, ball: any, p5: p5)
 
 // function GameSketch({ data }: { data: any }, socket: any) {
 function GameSketch({ data, socket } : any) {
-    useEffect(() => {
-        // This code will run after the component has been rendered and state is updated
-        // console.log('Effect: ', data);
-        // if (data.canvas) {
-        //     console.log('Canvas: ', data.canvas);
-            // Add your canvas setup logic here
-            // const cnv = data.canvas ? p.createCanvas(data.canvas.width, data.canvas.height).id('canvas') : null;
-            // const x = (window.innerWidth - 600) / 2;
-            // const y = (window.innerHeight - 400) / 2;
-            // if (cnv) {
-            //     cnv.position(x, y);
-            // }
-        // }
-    }, [data]);
+    const [updatedData, setUpdatedData] = useState({});
+	
+	useEffect(() => {
+		socket.webSocket.on('Play', (updatedData : any) => {
+			setUpdatedData(updatedData);
+			console.log('data =>', updatedData);
+		});
+		return() => {
+			socket.webSocket.off('Play');
+		}
+    }, [data, socket.webSocket, updatedData]);
+
 
 	const setup = (p: p5) => {
-		console.log(`I am ${JSON.stringify(data)}`);
-		if (data.canvas !== undefined)
-			console.log(`------------------> ${data.canvas}`)
+		// console.log(`I am ${JSON.stringify(data)}`);
 		const cnv = p.createCanvas(data.canvas.width, data.canvas.height).id('canvas');
 		const x = (window.innerWidth - 600) / 2;
 		const y = (window.innerHeight - 400) / 2;
@@ -58,11 +54,13 @@ function GameSketch({ data, socket } : any) {
     }
 
     const draw = (p: p5) => {
+		
+		const currentData = Object.keys(updatedData).length ? updatedData : data;
 		p.background(0);
-		drawRec(data.paddle_1, p);
-		drawRec(data.paddle_2, p);
-		drawNet(data.canvas, data.net, p);
-		drawBall(data.canvas, data.ball, p);
+		drawRec(currentData.paddle_1, p);
+		drawRec(currentData.paddle_2, p);
+		drawNet(currentData.canvas, currentData.net, p);
+		drawBall(currentData.canvas, currentData.ball, p);
     }
 
     return (

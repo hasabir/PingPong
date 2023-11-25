@@ -20,6 +20,7 @@ let GameGateway = class GameGateway {
         this.gameService = gameService;
         this.gameLogicService = gameLogicService;
         this.logger = new common_1.Logger('new one');
+        this.gameLoopInterval = null;
     }
     ;
     onModuleInit() {
@@ -40,9 +41,11 @@ let GameGateway = class GameGateway {
         this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data));
     }
     playGame(socket, data) {
-        console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
-        console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
-        this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
+        if (!this.gameLoopInterval) {
+            this.gameLoopInterval = setInterval(() => {
+                this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
+            }, 1000 / 60);
+        }
     }
 };
 exports.GameGateway = GameGateway;
@@ -63,7 +66,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GameGateway.prototype, "initGame", null);
 __decorate([
-    (0, websockets_1.SubscribeMessage)('keydown'),
+    (0, websockets_1.SubscribeMessage)('play'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", void 0)

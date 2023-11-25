@@ -49,12 +49,24 @@ export class GameGateway implements OnModuleInit {
 		this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data))
 	}
 
-	@SubscribeMessage('keydown')
+	private gameLoopInterval: NodeJS.Timeout | null = null;
+	
+	@SubscribeMessage('play')
 	playGame(socket: Socket, data: any){
-		console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
-		console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
-		// console.log('')
-		this.server.to(data.name).emit('Play', this.gameLogicService.game(data))
+
+
+		if (!this.gameLoopInterval) {
+			this.gameLoopInterval = setInterval(() => {
+				this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
+			}, 1000 / 60);
+		  }
+
 	}
+
+
 }
+// console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);		
+// console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
+// console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
+// // console.log('')
 
