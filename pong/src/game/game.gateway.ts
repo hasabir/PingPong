@@ -13,6 +13,8 @@ import {Data, Room} from '../interfaces/game.interface';
 import { GameService } from './game.service'
 import { GameLogicService } from './game-logic.service';
 
+let i = 0;
+
 @WebSocketGateway({cors: 'http://localhost:3000', namespace: '/game'})
 export class GameGateway implements OnModuleInit {
 	
@@ -46,26 +48,29 @@ export class GameGateway implements OnModuleInit {
 
 	@SubscribeMessage('Init')
 	initGame(socket: Socket, data: any){
-		this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data))
+		this.server.to(data.name).emit('initCanvas',
+			this.gameLogicService.initCanvas(data))
 	}
-
+	
 	private gameLoopInterval: NodeJS.Timeout | null = null;
 	
+
+	//! I need to chang the room from the room array (the room will be map)
 	@SubscribeMessage('play')
 	playGame(socket: Socket, data: any){
-
-
-		if (!this.gameLoopInterval) {
-			this.gameLoopInterval = setInterval(() => {
-				this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
-			}, 1000 / 60);
-		  }
-
+		
+		const new_room: Room = this.gameLogicService.game(data);
+		console.log(`x = ${new_room.ball.x} | y = ${new_room.ball.y}`);		
+		this.server.to(new_room.name).emit('Play', new_room);	
+		// this.server.to(data.name).emit('Play', this.gameLogicService.game(data));	
+		// console.log("***********", i++);
+		
 	}
-
-
 }
-// console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);		
+// if (!this.gameLoopInterval) {
+	// 	this.gameLoopInterval = setInterval(() => {
+	// 	}, 1000 / 60);
+	//   }
 // console.log(`x = ${data.ball.x} | y = ${data.ball.y}`);
 // console.log('\x1b[37m%s\x1b[0m', `test for ------------> ${data.name} from ${socket.id}`);
 // // console.log('')

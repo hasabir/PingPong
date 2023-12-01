@@ -63,7 +63,7 @@ export class GameService {
 			console.log('I AM THE FIRST ONE');
 			const newRoomName = this.generateRoomName();
 			const newRoom: Room = { name: newRoomName,
-				init: false,
+				init: false,end : false,
 				user1: updatedData, user2: undefined,
 				status_user1: true, status_user2: false};
 			this.rooms.push(newRoom);

@@ -15,6 +15,7 @@ const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const game_service_1 = require("./game.service");
 const game_logic_service_1 = require("./game-logic.service");
+let i = 0;
 let GameGateway = class GameGateway {
     constructor(gameService, gameLogicService) {
         this.gameService = gameService;
@@ -41,11 +42,9 @@ let GameGateway = class GameGateway {
         this.server.to(data.name).emit('initCanvas', this.gameLogicService.initCanvas(data));
     }
     playGame(socket, data) {
-        if (!this.gameLoopInterval) {
-            this.gameLoopInterval = setInterval(() => {
-                this.server.to(data.name).emit('Play', this.gameLogicService.game(data));
-            }, 1000 / 60);
-        }
+        const new_room = this.gameLogicService.game(data);
+        console.log(`x = ${new_room.ball.x} | y = ${new_room.ball.y}`);
+        this.server.to(new_room.name).emit('Play', new_room);
     }
 };
 exports.GameGateway = GameGateway;

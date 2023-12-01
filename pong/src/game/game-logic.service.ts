@@ -83,14 +83,9 @@ export class GameLogicService {
 	
 		if (room.ball.y + room.ball.radius >= room.canvas.height || room.ball.y - room.ball.radius <= 0)
 			room.ball.velocityY *= -1;
-		
-
 		if (room.ball.x + room.ball.radius >= room.canvas.width || room.ball.x - room.ball.radius <= 0)
 			room.ball.velocityX *= -1;
-		
 		let player = room.ball.x < room.canvas.width / 2 ? room.paddle_1 : room.paddle_2;
-		
-		
 		if (room.ball.x > room.canvas.width / 2 && player == room.paddle_2)
 		{
 			player.y += (room.ball.y - (player.y + player.height / 2)) * 0.1;
@@ -99,9 +94,7 @@ export class GameLogicService {
 			else if (player.y + player.height > room.canvas.height)
 				player.y = room.canvas.height - player.height;
 		}
-		
-		
-	
+
 		if (this.collision(player, room) && player == room.paddle_2)
 		{
 			let collidePoint = room.ball.y - (player.y + player.height / 2);

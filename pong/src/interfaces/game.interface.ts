@@ -6,6 +6,7 @@ export interface Data {
 export interface Room{
 	name: string;
 	init: boolean;
+	end: boolean;
 	user1?: Data;
 	user2?: Data;
 	status_user1: boolean;
@@ -15,6 +16,7 @@ export interface Room{
 	paddle_2?: Paddle;
 	net?: Net;
 	ball?: Ball;
+
 }
 
 
