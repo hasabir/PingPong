@@ -1,0 +1,114 @@
+.leaderbord_background {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70vw;
+    height: 81vh;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1.5vw;
+    border: 2px solid #0c0f3a;
+    background: linear-gradient(180deg, rgba(16, 2, 54, 0.50) 0%, rgba(17, 2, 56, 0.00) 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+Header {
+    margin-top: -0.5%;
+} 
+
+.leaderbord_container
+{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    height: 70vh;
+    top: 55%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1.5vw;
+    border: 2px solid #0c0f3a;
+    background: linear-gradient(180deg, rgba(11, 6, 37, 0.35) 100%, rgba(11, 5, 34, 0.35) 100%);
+}
+
+/* .leaderboard_header{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.8%;
+    width: 53vw;
+    left: 10%;
+    border-bottom: 1px solid #0c0f3a;
+    font-weight: bold;
+    background-color: #0c0f3a;
+    color: white;
+    border-radius: 0.2vw;
+} */
+.leaderboard_header {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.8%;
+    padding-bottom: 1.5%;
+    width: auto;
+    top: 0%; 
+    left: 16.4%;
+    gap: 9vw;
+    font-weight: bold;
+    border-radius: 0.5vw;
+    margin-top: 1%;
+    font-family: 'Poppins';
+    color: #ffffff;
+    text-shadow:  1px 1px 0 #6E107A, 1px 1px 0 #6E107A;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.leaderboard_scroll {
+    margin-top: 2%;
+    position: absolute;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 11px; 
+    width: 60vw;
+    top: 6%;
+    max-height: 63vh; 
+    overflow-y: auto; 
+    font-family: 'Poppins';
+    color: #ffffff;
+    text-shadow:  1px 1px 0 #6E107A, 1px 1px 0 #6E107A;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    scrollbar-color: green transparent;
+    /* background-color: rgb(101, 101, 8); */
+}
+
+.leaderboard_scroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+.leaderboard_scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(200, 214, 200); 
+    border-radius: 5vw;
+    /* border: 6px solid #6E107A; */
+   
+}
+
+.leaderboard_scroll::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+.leaderboard_row {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-bottom: 1px solid #0c0f3a;
+}
