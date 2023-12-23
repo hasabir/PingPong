@@ -10,16 +10,16 @@ import { Link } from "react-router-dom";
 
 
 
-export function Message({ data, socket, user_id }: any) {
+export function Message({ data, socket, nickname }: any) {
 	
 	if(data.gameOver)
 	{
-		if (data.user1 !== undefined && user_id == data.user1.id)
+		if (data.user1 !== undefined && nickname == data.user1.id)
 			return	(<div className="Animated_gife">
 						<h1>You {data.user1.status}</h1>
 					</div>)
 
-		if (data.user2 !== undefined && user_id == data.user2.id)
+		if (data.user2 !== undefined && nickname == data.user2.id)
 		return	(<div className="Animated_gife">
 					<h1>You {data.user2.status}</h1>
 				</div>)
@@ -29,7 +29,7 @@ export function Message({ data, socket, user_id }: any) {
 	if (data.end)
 	{
 		console.log('data ended');
-		if (data.user1 !== undefined && user_id == data.user1.id)
+		if (data.user1 !== undefined && nickname == data.user1.id)
 		{
 			// if (data.user1.status == 'lose')
 			// 	return (<div className="Animated_gife">
@@ -43,7 +43,7 @@ export function Message({ data, socket, user_id }: any) {
 					<h1>Other User Left The game</h1>
 					</div>)
 		}
-		if (data.user2 !== undefined && user_id == data.user2.id)
+		if (data.user2 !== undefined && nickname == data.user2.id)
 		{
 			// if (data.user2.status == 'lose')
 			// 	return (<div className="Animated_gife">
@@ -81,28 +81,28 @@ export function Message({ data, socket, user_id }: any) {
 }
 
 
-// function UserHasInput(data, user_id)
+// function UserHasInput(data, nickname)
 // {
 // 	if (data.user1 !== undefined 
 // 		&& data.user1.input_device === undefined 
-// 		&& data.user1.id === user_id)
+// 		&& data.user1.id === nickname)
 // 		return false;
 // 	if (data.user2 !== undefined 
 // 		&& data.user2.input_device === undefined 
-// 		&& data.user2.id === user_id)
+// 		&& data.user2.id === nickname)
 // 		return false;
 // 	return true;
 // }
 
 
-// export function Message({ data, socket, user_id }: any) {
+// export function Message({ data, socket, nickname }: any) {
 // //   const isUserWaiting = UserIsWaiting(data);
 
-// 	// let user = witchUser(user_id, data);
+// 	// let user = witchUser(nickname, data);
 	
 // 	// let user: any;
-// 	// if (!UserHasInput(data, user_id))
-// 	// 	return <DeviceSelection data={data} socket={socket} user_id={user_id}/>;
+// 	// if (!UserHasInput(data, nickname))
+// 	// 	return <DeviceSelection data={data} socket={socket} nickname={nickname}/>;
 	
 // 	// if (data.user1 != undefined && data.user1.isWaiting === true
 // 	// 		&& data.user2 != undefined && data.user2.isWaiting === true
@@ -116,7 +116,7 @@ export function Message({ data, socket, user_id }: any) {
 // 	// 		</div>
 // 	// 	);
 // 	// user = data.user1;
-// 	// else if (data.user2 !== undefined && data.user2.id === user_id)
+// 	// else if (data.user2 !== undefined && data.user2.id === nickname)
 // 	// 	user = data.user2;
 
 // 	// if (user.input_device === undefined)

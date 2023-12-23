@@ -12,12 +12,12 @@ const Settings = () => {
     );
 
     const [nickname, setNickname] = useState('');
-    const [userName, setUserName] = useState('Aya Heddak');
+    // const [nickname, setNickname] = useState('Aya Heddak');
     const [isToggled, setIsToggled] = useState(false);
 
     useEffect(() => {
         const savedNickname = localStorage.getItem('nickname');
-        if (savedNickname) setUserName(savedNickname);
+        if (savedNickname) setNickname(savedNickname);
 
         const saved2FAStatus = localStorage.getItem('2FAStatus');
         if (saved2FAStatus === 'enabled') setIsToggled(true);
@@ -32,8 +32,8 @@ const Settings = () => {
     }
 
     const handleConfirm = () => {
-        setUserName(nickname);
-        setNickname('');
+        setNickname(nickname);
+        // setNickname('');
 
         localStorage.setItem('nickname', nickname);
     }
@@ -123,7 +123,7 @@ const Settings = () => {
 
 
                         <div className="name-section">
-                            <label className="user-name">{userName}</label>
+                            <label className="user-name">{nickname}</label>
                         </div>
 
                 </div>

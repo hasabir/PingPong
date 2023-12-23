@@ -3,10 +3,7 @@ import './Home.css';
 import { Link } from 'react-router-dom';
 import CardFlip from '../../components/CardFlip';
 
-const Home = (user_id: any) => {
-
-	let id = user_id;
-
+const Home = () => {
     return (
     <>
         <div className="header_section">
@@ -47,7 +44,7 @@ const Home = (user_id: any) => {
 				pong duel. Compete, laugh, and see who emerges as the true paddle\
 				champion" 
 			imageSrc="avatar1.png"
-			linkto={`/Game?gameTheme=Room&user_id=${id.user_id}`} />
+			linkto={`/Game?gameTheme=Room`} />//! add nickname here?
         </div>
         <div className='second_sec'> 
           <CardFlip title="AI Showdown"
@@ -56,8 +53,7 @@ const Home = (user_id: any) => {
 			formidable robot opponent. Can you outplay \
 			the machine and become the ping pong master?" 
 			imageSrc="robot3.gif" 
-			linkto={`/Game?gameTheme=Solo&user_id=${id.user_id}`} />
-        </div>
+			linkto={`/Game?gameTheme=Solo`} /> </div>//! add nickname here?
         <div className='last_sec'> 
           <CardFlip title="Random Vibes" description1="Randomized Chaos" description2="Dive into the unpredictable world of Random mode. Expect the unexpected, adapt on the fly, and enjoy the chaotic fun of ping pong with a twist" imageSrc="random.png" linkto="/Game?gameTheme=Solo" /> 
         </div>

@@ -1,0 +1,37 @@
+read Authentication in doc 
+read guarts in doc
+impliment jwt
+create post for nickname for testing
+check validation of tocken 
+create refresh tocken
+create logout
+request friend
+accept friend
+achevement
+
+--------------------------------------------------------------
+
+1. store nickname in db ----> done
+2. store gender in db ------> done
+3. create jwt for cookies ------> done 
+4. handel AuthGuard --------> done
+5. create function to send data profile to front --------> done
+2. create function to send nickname to front ------> done
+1. create function for laderboard (nickname, img, xp, winNumber, LoseNumber, Achivements.) -----> done
+
+--------------------------------------------------------------
+
+1. create refresh tocken  -----> in progress
+3. create profile db -----> process
+
+--------------------------------------------------------------
+create match history (vs player, xp, date, status(win or lose))
+3. create 2 FA
+4. enable and disable 2 factor authentication
+5. table Achivements
+7. logout (delete cookies)
+
+--------------------------------------------------------------
+
+1.2fA: Get: Qr code. Post: code. As response: token.
+7.Settings: Get: nickname, img, 2FA status (enable or disable).

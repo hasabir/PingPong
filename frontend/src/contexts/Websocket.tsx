@@ -9,15 +9,14 @@ export interface IWebSocketContext {
 	setWebSocket: React.Dispatch<React.SetStateAction<Socket<DefaultEventsMap, DefaultEventsMap>>>;
 }
 
-const socket = io("http://192.168.1.24:3001/game", {
-	// const socket = io("https://shiny-barnacle-wqr75p9pqgxf7q4-3001.app.github.dev/game", {
+const socket = io("http://localhost:3000/game", {
 	transports: ['websocket'], //! Force the use of WebSocket
 });
 
 //create context
 const WebSocketContext = createContext<IWebSocketContext | undefined>(undefined);
 
-//use context0
+//use context
 function useWebSocketContext() {
 
 	const context = useContext(WebSocketContext)

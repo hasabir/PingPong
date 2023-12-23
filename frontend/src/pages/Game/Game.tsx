@@ -5,32 +5,50 @@ import { Message } from './Message';
 import { LeaveGame } from './LeaveGame';
 import { useLocation, useParams } from 'react-router-dom';
 import DeviceSelection from './DeviceSelection';
+import axios from 'axios';
 
 let startGame = 0;
 let stock:  string | null = null;
 const Game = () => {
 
 	const [data, setData] = useState({});
+	const [nickname, setNickname] = useState('');
 	const socket = useWebSocketContext();
+	
 	
 	const { search } = useLocation();
 	const params = new URLSearchParams(search);
 	let gameTheme = params.get('gameTheme');
-	let user_id = params.get('user_id');
+	// let nickname = params.get('nickname');
 
+
+	const fetchNickname = async () => {
+		try {
+		  const response = await axios.get('http://localhost:3000/auth/user', {
+			withCredentials: true,
+		  });
+  
+		  const userNickname = response.data.nickname;
+		  setNickname(userNickname);
+		} catch (error) {
+		  console.error('Error fetching user nickname:', error);
+		}
+	  };
+  
+	  fetchNickname();
 
 	
 	if (gameTheme === 'Solo' && gameTheme != stock)
 	{
 		console.log('i am solo');
 		stock = gameTheme;
-		socket.webSocket.emit('PlaySolo', user_id);
+		socket.webSocket.emit('PlaySolo', nickname);
 	}
 	if (gameTheme === 'Room' && gameTheme != stock)
     {
 		console.log('i am room');
 		stock = gameTheme;
-		socket.webSocket.emit('JoinRoom', user_id);
+		socket.webSocket.emit('JoinRoom', nickname);
 	}
 	
 	useEffect(() => {
@@ -119,10 +137,10 @@ return (
 	<div>
 		<div >
 			{/* <DeviceSelection /> */}
-			<Message data={data} socket={socket} user_id={user_id}/>
+			<Message data={data} socket={socket} nickname={nickname}/>
 		</div>
 		<center>
-			<GameSketch data={data} socket={socket} user_id={user_id}/>
+			<GameSketch data={data} socket={socket} nickname={nickname}/>
 		</center>
 	</div>
 );

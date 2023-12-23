@@ -59,7 +59,7 @@ function mouseInPaddle(mouseX: any, mouseY: any, paddle: any, p: p5){
 	return p.dist(mouseX, mouseY, closestX, closestY) === 0;
 }
 
-function GameSketch({ data, socket, user_id } : any) {
+function GameSketch({ data, socket, nickname } : any) {
 	if (data.canvas === null || data.canvas === undefined
 		|| data.ball === null || data.ball === undefined)
 		return null;
@@ -102,9 +102,9 @@ function GameSketch({ data, socket, user_id } : any) {
 		}
 		
 		if (p.keyIsDown(p.UP_ARROW))
-			socket.webSocket.emit('keyup', {name: data.name, user_id: user_id});
+			socket.webSocket.emit('keyup', {name: data.name, nickname: nickname});
 		else if (p.keyIsDown(p.DOWN_ARROW))
-			socket.webSocket.emit('down', {name: data.name, user_id: user_id});
+			socket.webSocket.emit('down', {name: data.name, nickname: nickname});
 
 			
 		// if (p.mouseIsPressed && (p.mouseButton === p.LEFT))

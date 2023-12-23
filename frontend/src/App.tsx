@@ -13,7 +13,6 @@ import Game from './pages/Game/Game';
 
 
 const App = () => {
-	let user_id = prompt('define you:');
 	return (
 			<Router>
 				<Routes>
@@ -67,7 +66,7 @@ const App = () => {
 						element={
 							<>
 								<Hdr isWelcomePage={false} />
-								<Home user_id={user_id}/>
+								<Home />
 								{/* </WebSocketContextProvider> */}
 
 							</>

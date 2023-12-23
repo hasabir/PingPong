@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 
 import './Message'
 
-const DeviceSelection = ({ data, socket, user_id }: any) => {
+const DeviceSelection = ({ data, socket, nickname }: any) => {
 	
 	// let user: any;
 
-	// if (data.user1 !== undefined && data.user1.id === user_id)
+	// if (data.user1 !== undefined && data.user1.id === nickname)
 	// 	user = data.user1;
-	// else if (data.user2 !== undefined && data.user2.id === user_id)
+	// else if (data.user2 !== undefined && data.user2.id === nickname)
 	// 	user = data.user2;
 	
 	const handleSelection = (selectedDevice) => {
 		// if (data.user === 1)
-		// if (data.user1 !== undefined && data.user1.id === user_id)
+		// if (data.user1 !== undefined && data.user1.id === nickname)
 		if (data.user1 !== undefined 
 			&& data.user1.input_device === undefined 
-			&& data.user1.id === user_id)
+			&& data.user1.id === nickname)
 		{
 			data.user1.input_device = selectedDevice;
 			data.user1.isWaiting = true;
@@ -25,7 +25,7 @@ const DeviceSelection = ({ data, socket, user_id }: any) => {
 		}
 		else if (data.user2 !== undefined 
 			&& data.user2.input_device === undefined 
-			&& data.user2.id === user_id)
+			&& data.user2.id === nickname)
 			{
 				// data.user2.status = true;
 				data.user2.input_device = selectedDevice;

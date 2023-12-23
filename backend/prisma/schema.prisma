@@ -1,0 +1,190 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+	profileId Int @id @default(autoincrement())
+	img String
+	WinsCount Int
+	LoseCount Int
+	rank Int
+	xp Int
+	Achivements String
+	profileCreator Int @unique // one to one 
+
+  	user user  @relation("UserProfile", fields: [profileCreator], references: [id])
+}
+
+model user {
+	id Int @id @default(autoincrement())
+	FirstName String
+	LastName String
+	nickname String @unique
+	// status UserStatus
+	firstLogin Boolean
+	// login String @unique
+	// photo String[]
+	avatar String
+
+  	profile    Profile?  @relation("UserProfile")
+	messagesSent    Message[]
+	userToGame UserGame[]
+	channelToMember channelMember[]
+	channelOwner channel[]
+
+	sender  directMessage[] @relation("sender")
+    reciepient directMessage[] @relation("recipient")
+
+	senderFriend friendship[] @relation("friend1")
+	receiverFriend friendship[] @relation("friend2")
+}
+
+ model Achivements{
+	achivId Int @id @default(autoincrement())
+	achiv String
+ }
+
+model friendship{
+	friendshipId Int @id @default(autoincrement())
+	userId Int
+	friendId Int
+	status friendshipStatus
+	SenderFriend user @relation("friend1" ,fields: [userId], references: [id])
+	ReceiverFriend user @relation("friend2" , fields: [friendId], references: [id])
+}
+
+model UserGame{
+	UserGameId Int @id @default(autoincrement())
+	GameId Int
+	playerId Int
+	status GameStatus @default(equal)
+	player user @relation(fields: [playerId], references: [id])
+	Game Game @relation(fields: [GameId], references: [GameId])
+}
+
+model Game {
+	GameId Int @id @default(autoincrement())
+	score String
+	startDate DateTime @default(now())
+	endDate DateTime
+	userToGame UserGame[]
+}
+
+model Message {
+	messageId Int @id @default(autoincrement())
+	messageText String
+	creationTime DateTime @default(now())
+	senderId Int
+	chatRoom String
+	// lastOne String @unique()
+
+	channel channel @relation("channels" , fields: [chatRoom], references: [channelId])
+    sender     user @relation(fields: [senderId], references: [id])
+	// lastOneInchannel channel @relation( "last one" ,fields: [lastOne], references: [channelId])
+}
+
+model channel{
+	channelId  String @id @default(uuid())
+	channelName String
+	creationTime DateTime @default(now())
+	channelOwner Int
+	password String?
+	channelType channelType
+	// lastMessage Message? @relation("last one")
+
+	channelToMember channelMember[]
+	message Message[] @relation("channels")
+	admins adminChannels[]
+	owner user @relation(fields: [channelOwner], references: [id])
+}
+
+model channelMember{
+	channelMemberId Int @id @default(autoincrement())
+	member Int
+	channel String
+	status memberRole @default(user)
+	restrict Restrict @default(active)
+	limitedTime DateTime?
+
+	memberInChannel user @relation(fields: [member], references: [id])
+	room channel @relation(fields: [channel], references: [channelId])
+
+	@@unique([member, channel])
+}
+
+model directMessage{
+	directMessageId Int @id @default(autoincrement())
+	messageText String
+	senderId Int 
+	recipientId Int
+	CreationTime DateTime @default(now())
+
+	sender user @relation("sender" ,fields: [senderId] ,references: [id])
+	recipient user @relation("recipient", fields: [recipientId] ,references: [id])
+}
+
+model admin {
+	adminId Int @id @default(autoincrement())
+
+	adminToChannel adminChannels[]
+}
+
+model adminChannels {
+	adminChannelsId Int @id @default(autoincrement())
+	admin Int
+	channel String
+
+	administrator admin @relation(fields: [admin], references: [adminId])
+	room channel @relation(fields: [channel], references: [channelId])
+}
+
+
+//=====hors sujet c'est juste pour tester=========== 
+model test{										//||
+	id String @id @default(uuid())				//||
+	name String @unique							//||
+	age Int										//||
+}												//||
+//================================================||
+enum memberRole {
+	owner
+	admin
+	user
+}
+
+
+enum GameStatus {
+	winner
+	loser
+	equal
+}
+
+enum Restrict {
+	active
+	banned
+	muted
+}
+
+enum channelType {
+	private
+	protected
+	public
+}
+
+enum friendshipStatus{
+	accepted
+	pending
+	declined
+}
+
+enum UserStatus{
+	online
+	offline
+	inGame
+}

@@ -13,12 +13,10 @@
 //! installing nest cli:
 	npm install -g @nestjs/cli
 
-- check if mouse does not effect mach making function
-
 
 - merge with database
-- Correct all types 
+- Correct all types
 - leave game button
 - leave game message pop up (not mandatory)
-
+- play with mouse (not mandatory)
 - backend of invite friend 

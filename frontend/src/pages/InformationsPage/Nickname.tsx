@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import client from '../../components/client';
 import axios from 'axios'
 type NicknameProps = {
     onNext: (nextStep: string) => void;
@@ -22,6 +21,35 @@ const [error, setError] = useState<string>('');
 //         onNext('gender');
 //     }
 // };
+// const handleNext = async () => {
+//     if (nickname.trim() === '') 
+//         setError('Please enter a nickname');
+//     else if (nickname.length > maxCharacters) 
+//         setError('Nickname cannot exceed 20 characters');
+//     else {
+//         setError('');
+//         try {
+                // const urlParams = new URLSearchParams(window.location.search); // Retrieve the token from the URL
+                // const token = urlParams.get('token');
+                // if (!token) // Check if the token is present
+                // {
+                //     console.error('Token not found in the URL');
+                //     return;
+                // }
+                // Make a request to your backend using Axios with the token in the headers
+                // const response = await axios.post('http://your-backend-url/auth/nickname', { nickname }, {
+                //     headers: {
+                //         'Authorization': `Bearer ${token}`
+                //     }
+                // });
+//                 console.log(response.data);
+//                 onNext('gender');
+//             } catch (error) 
+//             {
+//                 console.error('Error making request:', error);
+//             }
+//     }
+// };
 const handleNext = async () => {
     if (nickname.trim() === '') {
         setError('Please enter a nickname');
@@ -31,32 +59,35 @@ const handleNext = async () => {
         setError('');
 
         try {
-            // Make a request to your backend using Axios
-            const response = await axios.post('http://your-backend-url/auth/nickname', { nickname });
-
-            // Handle the response as needed
+            console.clear();
+            // 1. Extract the JWT token from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('jwt');
+            if (!token) {
+                console.error('Token not found in the URL');
+                return;
+            }
+            document.cookie = `jwtToken=${token}; path=/`;// Store the JWT token in a cookie
+            console.log('JWT Token:', token);
+            const response = await axios.post('http://localhost:3000/auth/nickname', { nickname }, {
+                withCredentials: true
+            });
             console.log(response.data);
-
-            // Proceed to the next step
             onNext('gender');
         } catch (error) {
-            // Handle errors
             console.error('Error making request:', error);
+            console.log('Error name:', error.name);
+            console.log('Error message:', error.message);
+            console.log('Error stack:', error.stack);
+            console.log('Error response:', error.response); // This may contain details if the server responded
+            setError('Failed to register. Please try again.');
         }
     }
 };
-    // const handleNext = async () => {
-    //     try {
-        //     const response = await client.post('/api/register', { nickname });
-        //     console.log('Registration successful:', response.data);
-        //     onNext('gender');
-    //     } 
-    //     catch (error) 
-    //     {
-    //     console.error('Registration error:', error);
-    //     setError('Failed to register. Please try again.');
-    //     }
-    // };
+
+
+
+   
 
     return (
         <form

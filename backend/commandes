@@ -1,0 +1,27 @@
+connect to postgres : psql -U postgres -d mydb -h localhost
+show tables : \dt
+show all data exist in table :SELECT * FROM "user";
+
+
+test_jwt : npx jest backend/src/auth/test.spec.ts 
+test fuction : npm run test_fun
+
+
+  user: {
+    id: 1,
+    FirstName: 'Mohamed',
+    LastName: 'Chegri',
+    nickname: '',
+    login: 'mochegri',
+    photo: [
+      'https://cdn.intra.42.fr/users/c7bff587aa4796f84c210e748fe2cfa6/mochegri.jpg'
+    ]
+  },
+  accessToken: 'ddf7fd9ac1d184484c4ee9b6a9e821beb96329202bc7d20be4edc28740ea1910'
+}
+haaaaaaaaaaaaaaaadi 111  {
+  accessToken: 'ddf7fd9ac1d184484c4ee9b6a9e821beb96329202bc7d20be4edc28740ea1910',
+  iat: 1702135937,
+  exp: 1702135997
+}
+haaaaaaaaaaaaaaaadi 555  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbiI6ImRkZjdmZDlhYzFkMTg0NDg0YzRlZTliNmE5ZTgyMWJlYjk2MzI5MjAyYmM3ZDIwYmU0ZWRjMjg3NDBlYTE5MTAiLCJpYXQiOjE3MDIxMzU5MzcsImV4cCI6MTcwMjEzMjMzN30.2fqMjHXIe72ZhOZu0NYP4rIOTWuSsEK3megx9NHLUXo
