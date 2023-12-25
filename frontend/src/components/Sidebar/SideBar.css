@@ -1,0 +1,62 @@
+.sidebar{
+  background-image: linear-gradient(-90deg, rgb(25, 3, 86) 35%, rgba(22, 6, 63, 0.5) 58%);
+  border: 2.5px solid #0A0233;
+  border-radius: 1.50vw;
+  width: 4.336vw;
+  height: 30.109vw;
+  display:flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items:center;
+  margin-left: 20%;
+  /* background-color: tomato; */
+}
+
+.menu {
+    display: flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+    height: 24vw;
+    margin: 0;
+    padding:0;
+  }
+
+.selected {
+    filter: brightness(2.3);
+}
+
+.profile-pic{
+  width: 2.510vw;
+  height: 2.510vw;
+}
+
+.profile-pic.selected {
+  filter: none;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.home-icon{
+  width: 2.510vw;
+  height: 1.800vw;
+}
+
+.chat-icon{
+  width: 2.406vw;
+  height: 1.800vw;
+}
+.leaderboard-icon{
+  width: 2.510vw;
+  height: 1.800vw;
+}
+
+.setting-icon{
+  width: 2.302vw;
+  height: 1.800vw;
+}
+
+.logout-icon{
+  width: 2.198vw;
+  height: 1.800vw;
+}

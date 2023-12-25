@@ -1,0 +1,12 @@
+.notification{
+    background: transparent;
+    border: 0vw;
+    border-radius: 34px;
+    outline: none;
+    border: 1px  #57116E;
+    height: 2.5vw;
+    width: 3.2vw;
+    top: 1.7vw; 
+    left: 61.5%;
+    position: absolute;
+}

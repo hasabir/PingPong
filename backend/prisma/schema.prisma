@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model profile {
+	profileId Int @id @default(autoincrement())
+	img String
+	WinsCount Int
+	LoseCount Int
+	rank Int
+	xp Int
+	status userStatus @default(offline)
+	// achivementId Int @unique 
+	profileCreator Int @unique // one to one 
+	// Achivements Achivements @relation(fields: [achivementId], references: [achivId])
+  	user user  @relation("Userprofile", fields: [profileCreator], references: [id])
+}
+
+
+// model Achivements {
+//   achivId         Int             @id @default(autoincrement())
+//   descriptionAchiv DescriptionAchiv
+//   jewel           String
+//   profiles        profile[]
+//   achivName       achivName       @relation(fields: [achivNameId], references: [id])
+//   description     description     @relation(fields: [descriptionId], references: [id])
+//   achivNameId     Int
+//   descriptionId   Int
+// }
+
+// model description {
+//   id               Int               @id @default(autoincrement())
+//   description      String
+//   descriptionAchiv DescriptionAchiv 
+//   achivements      Achivements[] // One-to-many
+// }
+
+// model achivName {
+//   id               Int               @id @default(autoincrement())
+//   name				String
+//   achivName        AchivName
+//   achivements      Achivements[] // One-to-many
+// }
+
+
+model user {
+	id Int @id @default(autoincrement())
+	FirstName String
+	LastName String
+	nickname String @unique
+	// status UserStatus
+	firstLogin Boolean
+	// login String @unique
+	// photo String[]
+	avatar String
+
+  	// profile    profile? 
+  	profile    profile?  @relation("Userprofile")
+	messagesSent    Message[]
+	userToGame userGame[]
+	channelToMember channelMember[]
+	channelOwner channel[]
+
+	sender  directMessage[] @relation("sender")
+    reciepient directMessage[] @relation("recipient")
+
+	senderFriend friendship[] @relation("friend1")
+	receiverFriend friendship[] @relation("friend2")
+}
+
+
+model userGame {
+    UserGameId Int @id @default(autoincrement())
+    GameId Int
+    playerId Int
+    status GameStatus
+
+    player user @relation(fields: [playerId], references: [id])
+    Game Game @relation(fields: [GameId], references: [GameId])
+}
+
+model Game {
+    GameId Int @id @default(autoincrement())
+    startDate DateTime
+    endDate DateTime  @default(now())
+
+    userToGame userGame[]
+}
+
+model Message {
+    messageId Int @id @default(autoincrement())
+    messageText String
+    creationTime DateTime @default(now())
+    senderId Int
+    chatRoom String
+
+    channel channel @relation("channels" , fields: [chatRoom], references: [channelId])
+    sender     user @relation(fields: [senderId], references: [id])
+    channelLastMessage channel? @relation("lastMessage")
+}
+
+model channel{
+    channelId  String @id @default(uuid())
+    channelName String
+    creationTime DateTime @default(now())
+    channelOwner Int
+    password String?
+    lastMessageId Int? @unique()
+
+    channelType channelType
+
+    channelToMember channelMember[]
+    message Message[] @relation("channels")
+    owner user @relation(fields: [channelOwner], references: [id])
+    lastMessage Message? @relation("lastMessage", fields: [lastMessageId], references: [messageId])
+}
+
+model channelMember{
+    channelMemberId Int @id @default(autoincrement())
+    member Int
+    channel String
+    status memberRole @default(user)
+    restrict Restrict @default(active)
+    limitedTime DateTime?
+
+    memberInChannel user @relation(fields: [member], references: [id])
+    room channel @relation(fields: [channel], references: [channelId])
+
+    @@unique([member, channel])
+}
+
+model directMessage{
+    directMessageId Int @id @default(autoincrement())
+    messageText String
+    senderId Int 
+    recipientId Int
+    CreationTime DateTime @default(now())
+    lastOne friendship? 
+
+    sender user @relation("sender" ,fields: [senderId] ,references: [id])
+    recipient user @relation("recipient", fields: [recipientId] ,references: [id])
+}
+model friendship {
+    friendshipId Int @id @default(autoincrement())
+    userId Int
+    friendId Int
+    status friendshipStatus
+    lastDmId Int? @unique()
+
+    SenderFriend user @relation("friend1" ,fields: [userId], references: [id])
+    ReceiverFriend user @relation("friend2" , fields: [friendId], references: [id])
+    LastDm directMessage? @relation(fields: [lastDmId], references: [directMessageId])
+    @@unique([userId, friendId, status])
+}
+
+enum memberRole {
+    owner
+    admin
+    user
+}
+
+
+enum GameStatus {
+    winner
+    loser
+}
+
+enum Restrict {
+    active
+    banned
+    muted
+}
+
+
+enum channelType {
+    private
+    protected
+    public
+}
+
+enum friendshipStatus {
+    accepted
+    pending
+    declined
+}
+
+
+enum userStatus {
+    online
+    offline
+    inGame
+}
+
+// enum DescriptionAchiv {
+//   win_first_game
+//   win_three_successive_matchs
+//   reach_500_xp
+// }
+
+
+// enum AchivName {
+//   ping_pong_junior
+//   ping_pong_senior
+//   ping_pong_master
+// }

@@ -1,0 +1,74 @@
+.message {
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+
+.Animated_gife
+{
+    position: absolute;
+    /* display: flex; */
+    flex-direction: column;
+    /* align-items: center; */
+    /* width: 40vw;
+    height: 29.9vh; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* .ChooseInput{
+	position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 40vw;
+    height: 29.9vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #845DC0;
+	width: 20%;
+
+	background-color: burlywood;
+    border: 1px solid #e4d6e1;
+	border: rgba(85,59,94, 0);
+
+} */
+
+
+
+.ChooseInput {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 20%;
+	/* border: 1px solid #e4d6e1; */
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .ChooseInput h1 {
+	margin-bottom: 20px; /* Add some spacing below the heading */
+  }
+  
+  .ChooseInput img {
+	width: 100px; /* Adjust the width as needed */
+	height: 100px; /* Adjust the height as needed */
+	margin: 10px; /* Add margin between the images */
+	cursor: pointer;
+	transition: transform 0.3s; /* Add a smooth transition effect */
+  }
+  
+  .ChooseInput img:hover {
+	transform: scale(1.1); /* Increase the size on hover */
+  }
+  
+  

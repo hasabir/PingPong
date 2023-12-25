@@ -1,0 +1,32 @@
+.search-bar {
+    /* position: absolute;
+    display: flex;
+    flex-direction: column; */
+    background-image: linear-gradient(to bottom, #6c2a7e79, #170c53);
+
+    border: 1px solid #57116E;
+    border-radius: 20px;
+    border-radius: 1.250vw;
+    width: 27.750vw;
+    height: 2.292vw;
+    position: absolute;
+    top: 1.7vw; 
+    left: 47.7%;
+    transform: translateX(-50%);
+  }
+  
+  .search-bar input {
+    background: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding: 0 1.953vw;
+    font-size: 0.898vw;
+    color: #b2afb8;
+  }
+  
+  .search-bar input::placeholder {
+    color: #c9c3d7;
+  }
+  

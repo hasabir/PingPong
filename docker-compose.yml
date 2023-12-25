@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    env_file:
+      - ./backend/.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432
+    networks:
+      - transcendence
+
+  backend:
+    build:
+      context: ./backend
+    image: backend
+    container_name: backend
+    ports:
+      - 3000
+    depends_on:
+      - postgres
+    env_file:
+      - ./backend/.env 
+    restart: always
+    networks:
+      - transcendence
+
+volumes:
+  postgres:
+
+networks:
+  transcendence:
