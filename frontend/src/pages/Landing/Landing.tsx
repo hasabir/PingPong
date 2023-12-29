@@ -15,10 +15,11 @@ const Landing = () => {
           src={process.env.PUBLIC_URL + 'pngtree.jpg'}
           alt='Overlay'
         />
-          <div className="nickname-cmp">
-            <Header title="Welcome Please login !"/>
+          <div>
+            <img className='right_img' src={process.env.PUBLIC_URL + '/avatar1.png'} alt="Avatar 1" />
+            <img className='left_img' src={process.env.PUBLIC_URL + '/random.png'} alt="Avatar 1" />
             <button className="login-button" onClick={handleLogin}>
-              <span className="button-text">42 Login</span>
+              <span className="button-text">Sign in with intra 42</span>
             </button>
           </div>
     </div>

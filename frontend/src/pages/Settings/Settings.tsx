@@ -1,5 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import './Settings.css';
 import Header from '../../components/header';
 
@@ -12,7 +14,7 @@ const Settings = () => {
     );
 
     const [nickname, setNickname] = useState('');
-    const [userName, setUserName] = useState('Aya Heddak');
+    const [userName, setUserName] = useState('@B9o9a');
     const [isToggled, setIsToggled] = useState(false);
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const Settings = () => {
     }
 
     const handleConfirm = () => {
-        setUserName(nickname);
+        setUserName('@' + nickname);
         setNickname('');
 
         localStorage.setItem('nickname', nickname);
@@ -88,8 +90,9 @@ const Settings = () => {
             <div className="centered-container">
 
                 <div className="settings-heading">
-                    <Header title='Settings' description='Manage your information and security' />
+                    <Header title='Settings' />
                 </div>
+                <div className="separator-line"></div>
 
                 <div className="content-section">
 
@@ -106,11 +109,7 @@ const Settings = () => {
                                 }
                                 alt="profile-img"
                             />
-                            <img
-                                className="icon-edit-image"
-                                src={process.env.PUBLIC_URL + '/icon-upload-img.svg'}
-                                alt="icon-upload-img"
-                            />
+                            <AddPhotoAlternateIcon className='icon-edit-image'/>
                         </label>
                         <input
                             type="file"
@@ -123,18 +122,16 @@ const Settings = () => {
 
 
                         <div className="name-section">
-                            <label className="user-name">{userName}</label>
+                            <label className="user-name">Bar9o9a 9o9a</label>
+                            <label className="nick-name">{userName}</label>
                         </div>
 
                 </div>
 
-                <div className="separator-line"></div>
-
-
                 <div className="nickname">
 
                         <div className="icon_text">
-                            <img className="edit_img" src={process.env.PUBLIC_URL + '/edit.svg'} alt="edit-icon" />
+                            <ModeEditOutlineIcon className="edit_img" />
                             <label className="edit_text">Edit Profile Name</label>
                         </div> 
 
