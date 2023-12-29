@@ -1,0 +1,22 @@
+//! TODO:
+
+	//? if the game is solo don't create the room 
+			- complete the game logic
+			//* case of player disconnect
+	//? if the game is not create the room and play within that room
+		- complete the game logic
+		//* case of player disconnect:
+			- if player 1 disconnect before maching with somone else;
+			- if player 1 or 2 disconnect while playing
+	
+
+//! installing nest cli:
+	npm install -g @nestjs/cli
+
+
+- merge with database
+- Correct all types
+- leave game button
+- leave game message pop up (not mandatory)
+- play with mouse (not mandatory)
+- backend of invite friend 

@@ -135,7 +135,7 @@ const Settings = () => {
 
                         <div className="icon_text">
                             <img className="edit_img" src={process.env.PUBLIC_URL + '/edit.svg'} alt="edit-icon" />
-                            <label className="edit_text">Edit profile Name</label>
+                            <label className="edit_text">Edit Profile Name</label>
                         </div> 
 
                         <div className="input_and_confirm">

@@ -2,9 +2,9 @@
     /* position: absolute;
     display: flex;
     flex-direction: column; */
-    background-image: linear-gradient(to bottom, #6c2a7e79, #170c53);
+    background-image: linear-gradient(to bottom, rgba(45, 206, 148, 0.2), rgba(45, 206, 148, 0.1));
 
-    border: 1px solid #57116E;
+    border: 1px solid #2DCE94;
     border-radius: 20px;
     border-radius: 1.250vw;
     width: 27.750vw;
@@ -23,10 +23,10 @@
     outline: none;
     padding: 0 1.953vw;
     font-size: 0.898vw;
-    color: #b2afb8;
+    color: #ADE2CF;
   }
   
   .search-bar input::placeholder {
-    color: #c9c3d7;
+    color: #ADE2CF;
   }
   

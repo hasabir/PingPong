@@ -32,7 +32,7 @@ const Authentification = () => {
       setWarning('');
 
       // Navigate to the home page
-      navigate('/');
+      navigate('/home');
     } else {
       // Digits are incorrect, clear the input and show a warning
       setDigits(Array.from({ length: 6 }, () => ''));

@@ -41,8 +41,8 @@ export class GameGateway {
 
 
 	@SubscribeMessage('PlaySolo')
-	PlaySolo(socket: Socket, nickname: any){
-		this.roomService.SetSoloData(socket.id, nickname);
+	PlaySolo(socket: Socket, id: number){
+		this.roomService.SetSoloData(socket.id, id);
 		this.roomService.soloData.forEach((value, key) =>{
 		if (socket.id == key)
 		{
@@ -55,7 +55,7 @@ export class GameGateway {
 	}
 
 	@SubscribeMessage('play')
-	playGame(socket: Socket, data: any){
+	async playGame(socket: Socket, data: any){
 		for (let player of this.roomService.soloData.keys()){
 			if (socket.id == player)
 			{
@@ -77,14 +77,14 @@ export class GameGateway {
 
 		const score_user1 = this.roomService.rooms.get(data.name).user1.score;
 		const score_user2 = this.roomService.rooms.get(data.name).user2.score;
-		
-		this.roomService.updateRoom(this.gameService.game(this.roomService.rooms.get(data.name)), false);
+
+		const updatedRoom = await this.gameService.game(this.roomService.rooms.get(data.name));
+		this.roomService.updateRoom(updatedRoom, false);
 		let current_room: Room = this.roomService.rooms.get(data.name);
 
 		if (current_room.end)
 			this.server.to(data.name).emit('StopPlaying', current_room);
-		else
-		{
+		else {
 			this.server.to(data.name).emit('Play', current_room.ball);
 			if (current_room.user1.score != score_user1)
 				this.server.to(data.name).emit('UpScore_user1', current_room.user1);
@@ -100,7 +100,7 @@ export class GameGateway {
 			if (socket.id == key)
 			{
 				this.roomService.updateRoom(this.gameService.movePaddles(
-					this.roomService.rooms.get(key), data.nickname, -1), true);
+					this.roomService.rooms.get(key), data.id, -1), true);
 				this.server.to(key).emit('mv', value);
 				return;
 			}
@@ -131,7 +131,7 @@ export class GameGateway {
 	// {
 
 		this.roomService.updateRoom(this.gameService.movePaddles(
-									this.roomService.rooms.get(data.name), data.nickname, 1), false);
+									this.roomService.rooms.get(data.name), data.id, 1), false);
 		this.server.to(data.name).emit('mv', this.roomService.rooms.get(data.name));
 		// }
 	}

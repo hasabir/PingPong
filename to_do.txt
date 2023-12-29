@@ -1,0 +1,36 @@
+read Authentication in doc 
+read guarts in doc
+impliment jwt
+create post for nickname for testing
+check validation of tocken 
+create refresh tocken
+create logout
+request friend
+accept friend
+achevement
+
+--------------------------------------------------------------
+
+1. store nickname in db ----> done
+2. store gender in db ------> done
+3. create jwt for cookies ------> done 
+4. handel AuthGuard --------> done
+
+--------------------------------------------------------------
+
+1. create refresh tocken  -----> in progress
+3. create profile db -----> process
+
+--------------------------------------------------------------
+
+1. create db friendship
+2. enable and disable 
+3. function to send data to front 
+
+
+--------------------------------------------------------------
+1. create function to store in any db 
+2. create function to get from any db
+3. 2 Factor Authentication
+
+

@@ -5,7 +5,7 @@
   - The `id` column on the `user` table would be dropped and recreated. This will lead to data loss if there is data in the column.
   - You are about to drop the `Game` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `Message` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `profile` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Profile` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `UserGame` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `channel` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `channelMember` table. If the table is not empty, all the data it contains will be lost.
@@ -23,7 +23,7 @@ ALTER TABLE "Message" DROP CONSTRAINT "Message_recipientId_fkey";
 ALTER TABLE "Message" DROP CONSTRAINT "Message_senderId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "profile" DROP CONSTRAINT "profile_profileCreator_fkey";
+ALTER TABLE "Profile" DROP CONSTRAINT "Profile_profileCreator_fkey";
 
 -- DropForeignKey
 ALTER TABLE "UserGame" DROP CONSTRAINT "UserGame_GameId_fkey";
@@ -55,7 +55,7 @@ DROP TABLE "Game";
 DROP TABLE "Message";
 
 -- DropTable
-DROP TABLE "profile";
+DROP TABLE "Profile";
 
 -- DropTable
 DROP TABLE "UserGame";

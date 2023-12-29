@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Avatar } from '@mui/material';
+import SmsIcon from '@mui/icons-material/Sms';
+import RoofingRoundedIcon from '@mui/icons-material/RoofingRounded';
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import './SideBar.css';
 
 function Sidebar() {
@@ -15,47 +21,41 @@ function Sidebar() {
       <div className='menu'>
 
         <Link to="/profile">
-          <img className={selectedIcon === 'profile' ? 'profile-pic selected' : 'profile-pic'}
-              src={process.env.PUBLIC_URL + '/profile.png'}
-              alt="profile-pic"
+          <Avatar
+              src={'https://randomuser.me/api/portraits/women/79.jpg'}
               onClick={() => handleIconClick('profile')}
           />
         </Link>
-        <Link to="/">
-          <img className={selectedIcon === 'home' ? 'home-icon selected' : 'home-icon'}
-              src={process.env.PUBLIC_URL + '/home.svg'}
-              alt="Home-icon"
-              onClick={() => handleIconClick('home')}
+        <Link to="/home">
+        <RoofingRoundedIcon
+            style={{ fontSize: 40, color: selectedIcon === 'home' ? 'rgba(45, 206, 148, 0.2)' : '#2DCE94' }}
+            onClick={() => handleIconClick('home')}
           />
         </Link>
         <Link to="/chat">
-          <img className={selectedIcon === 'chat' ? 'chat-icon selected' : 'chat-icon'}
-              src={process.env.PUBLIC_URL + '/messages.svg'}
-              alt="chat-icon"
-              onClick={() => handleIconClick('chat')}
+          <SmsIcon
+            style={{ fontSize: 40, color: selectedIcon === 'chat' ? 'rgba(45, 206, 148, 0.2)' : '#2DCE94' }}
+            onClick={() => handleIconClick('chat')}
           />
         </Link>
         <Link to="/leaderboard">
-          <img className={selectedIcon === 'leaderboard' ? 'leaderboard-icon selected' : 'leaderboard-icon'}
-              src={process.env.PUBLIC_URL + '/trophy.svg'}
-              alt="leaderboard-icon"
-              onClick={() => handleIconClick('leaderboard')}
+          <LeaderboardOutlinedIcon
+            style={{ fontSize: 40, color: selectedIcon === 'leaderboard' ? 'rgba(45, 206, 148, 0.2)' : '#2DCE94' }}
+            onClick={() => handleIconClick('leaderboard')}
           />
-          </Link>
+        </Link>
 
         <Link to="/settings">
-          <img className={selectedIcon === 'settings' ? 'setting-icon selected' : 'setting-icon'}
-              src={process.env.PUBLIC_URL + '/user-gear.svg'}
-              alt="setting-icon"
-              onClick={() => handleIconClick('settings')}
+        <SettingsOutlinedIcon
+            style={{ fontSize: 40, color: selectedIcon === 'settings' ? 'rgba(45, 206, 148, 0.2)' : '#2DCE94' }}
+            onClick={() => handleIconClick('settings')}
           />
         </Link>
 
         <Link to="/logout">
-          <img className={selectedIcon === 'logout' ? 'logout-icon selected' : 'logout-icon'}
-              src={process.env.PUBLIC_URL + '/sign-out-alt.svg'}
-              alt="logout-icon"
-              onClick={() => handleIconClick('logout')}
+        <LogoutOutlinedIcon
+            style={{ fontSize: 40, color: selectedIcon === 'logout' ? 'rgba(45, 206, 148, 0.2)' : '#2DCE94' }}
+            onClick={() => handleIconClick('logout')}
           />
         </Link>
       </div>

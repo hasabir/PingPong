@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Settings from './pages/Settings/Settings';
-import Hdr from './components/Sidebar/Hdr';
+import Hdr from './components/Sidebar/Header';
 import Home from './pages/Home/Home';
 import Welcome from './pages/InformationsPage/Welcome';
 import NotFoundComponent from './components/notFound';
@@ -10,6 +10,8 @@ import Authentification from './pages/Settings/Authentification/Authentification
 import Landing from './pages/Landing/Landing';
 import LeaderBord from './pages/LeaderBord/LeaderBord';
 import Game from './pages/Game/Game';
+import ChangeNickname from './pages/InformationsPage/Welcome';
+
 
 
 const App = () => {
@@ -23,7 +25,8 @@ const App = () => {
 						element={
 							<>
 								<Hdr isWelcomePage={true} />
-								<Welcome />
+								<ChangeNickname />
+								{/* <Welcome /> */}
 							</>
 						}
 					/>
@@ -62,7 +65,7 @@ const App = () => {
 
 
 					<Route
-						path="/"
+						path="/home"
 						element={
 							<>
 								<Hdr isWelcomePage={false} />
@@ -85,7 +88,7 @@ const App = () => {
 					/>
 
 					<Route
-						path="/landing"
+						path="/"
 						element={
 							<>
 								{/* <Hdr isWelcomePage={false} /> */}

@@ -1,3 +1,6 @@
+// 
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,37 +18,37 @@ model profile {
 	rank Int
 	xp Int
 	status userStatus @default(offline)
-	// achivementId Int @unique 
+	achivementId Int? 
 	profileCreator Int @unique // one to one 
-	// Achivements Achivements @relation(fields: [achivementId], references: [achivId])
+	Achivements achivements? @relation(fields: [achivementId], references: [achivId])
   	user user  @relation("Userprofile", fields: [profileCreator], references: [id])
 }
 
 
-// model Achivements {
-//   achivId         Int             @id @default(autoincrement())
+model achivements {
+  achivId         Int             @id @default(autoincrement())
 //   descriptionAchiv DescriptionAchiv
-//   jewel           String
-//   profiles        profile[]
-//   achivName       achivName       @relation(fields: [achivNameId], references: [id])
-//   description     description     @relation(fields: [descriptionId], references: [id])
-//   achivNameId     Int
-//   descriptionId   Int
-// }
+  // jewel           String
+  profiles        profile[]
+  achivNameId     Int
+  descriptionId   Int
+  achivName       achivName       @relation(fields: [achivNameId], references: [id])
+  description     description     @relation(fields: [descriptionId], references: [id])
+}
 
-// model description {
-//   id               Int               @id @default(autoincrement())
-//   description      String
-//   descriptionAchiv DescriptionAchiv 
-//   achivements      Achivements[] // One-to-many
-// }
+model description {
+  id               Int               @id @default(autoincrement())
+  description      String
+  descriptionAchiv DescriptionAchiv 
+  achivements      achivements[] // One-to-many
+}
 
-// model achivName {
-//   id               Int               @id @default(autoincrement())
-//   name				String
-//   achivName        AchivName
-//   achivements      Achivements[] // One-to-many
-// }
+model achivName {
+  id               Int               @id @default(autoincrement())
+  name				String
+  achivName        AchivName
+  achivements      achivements[] // One-to-many
+}
 
 
 model user {
@@ -55,7 +58,7 @@ model user {
 	nickname String @unique
 	// status UserStatus
 	firstLogin Boolean
-	// login String @unique
+	login String @unique
 	// photo String[]
 	avatar String
 
@@ -196,15 +199,15 @@ enum userStatus {
     inGame
 }
 
-// enum DescriptionAchiv {
-//   win_first_game
-//   win_three_successive_matchs
-//   reach_500_xp
-// }
+enum DescriptionAchiv {
+  win_first_game
+  win_three_successive_matchs
+  reach_500_xp
+}
 
 
-// enum AchivName {
-//   ping_pong_junior
-//   ping_pong_senior
-//   ping_pong_master
-// }
+enum AchivName {
+  ping_pong_junior
+  ping_pong_senior
+  ping_pong_master
+}

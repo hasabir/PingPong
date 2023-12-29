@@ -11,13 +11,13 @@ h1 {
 
     font-size: 2vw;
     font-family: 'Libre Baskerville', sans-serif;
-    color: #cac3c8;
+    color: #ADE2CF;
     text-shadow:
-        -1px -1px 0 #6E107A,
-        1px -1px 0 #6E107A,
-        -1px 1px 0 #6E107A,
-        1px 1px 0 #6E107A,
-        0 0 6px #ae29c0;
+        -1px -1px 0 rgba(45, 206, 148, 0.2),
+        1px -1px 0 rgba(45, 206, 148, 0.2),
+        -1px 1px 0 rgba(45, 206, 148, 0.2),
+        1px 1px 0 rgba(45, 206, 148, 0.2),
+        0 0 6px rgba(45, 206, 148, 0.4);
     margin-bottom: 0.7%;
     font-style: normal;
     font-weight: 600;
@@ -30,8 +30,8 @@ p {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
-    color: #746589;
-    text-shadow: 0px 0px 0px #845DC0, 0px 0px 0px #845DC0, 0px 0px 0px #845DC0, 0px 0px 0px #845DC0;
+    color: rgba(45, 206, 148, 0.2);
+    text-shadow: 0px 0px 0px rgba(45, 206, 148, 0.4), 0px 0px 0px rgba(45, 206, 148, 0.4), 0px 0px 0px rgba(45, 206, 148, 0.4), 0px 0px 0px rgba(45, 206, 148, 0.4);
     font-family: Montserrat;
     font-size: 15px;
     font-style: normal;

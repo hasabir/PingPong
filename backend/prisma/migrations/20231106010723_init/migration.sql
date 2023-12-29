@@ -8,7 +8,7 @@ CREATE TYPE "memberRole" AS ENUM ('admin', 'user');
 CREATE TYPE "Restrict" AS ENUM ('active', 'banned', 'muted');
 
 -- CreateTable
-CREATE TABLE "profile" (
+CREATE TABLE "Profile" (
     "profileId" TEXT NOT NULL,
     "img" TEXT NOT NULL,
     "WinsCount" INTEGER NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE "profile" (
     "points" INTEGER NOT NULL,
     "profileCreator" TEXT NOT NULL,
 
-    CONSTRAINT "profile_pkey" PRIMARY KEY ("profileId")
+    CONSTRAINT "Profile_pkey" PRIMARY KEY ("profileId")
 );
 
 -- CreateTable
@@ -94,13 +94,13 @@ CREATE TABLE "test" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "profile_profileCreator_key" ON "profile"("profileCreator");
+CREATE UNIQUE INDEX "Profile_profileCreator_key" ON "Profile"("profileCreator");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "test_name_key" ON "test"("name");
 
 -- AddForeignKey
-ALTER TABLE "profile" ADD CONSTRAINT "profile_profileCreator_fkey" FOREIGN KEY ("profileCreator") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Profile" ADD CONSTRAINT "Profile_profileCreator_fkey" FOREIGN KEY ("profileCreator") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserGame" ADD CONSTRAINT "UserGame_playerId_fkey" FOREIGN KEY ("playerId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

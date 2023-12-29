@@ -4,13 +4,13 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres
-    restart: always
+    # restart: always
     env_file:
       - ./backend/.env
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
-      - 5432
+      - "5432:5432"
     networks:
       - transcendence
 
@@ -20,17 +20,62 @@ services:
     image: backend
     container_name: backend
     ports:
-      - 3000
+      - "3000:3000"
+      - "5555:5555"
     depends_on:
       - postgres
     env_file:
       - ./backend/.env 
-    restart: always
+    # restart: always
     networks:
       - transcendence
+    volumes:
+      - ./backend:/app  
+      - /app/node_modules  
+
+  frontend:
+    build:
+      context: ./frontend
+    image: frontend
+    container_name: frontend
+    ports:
+      - "3005:3005"
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env
+    networks:
+      - transcendence
+    volumes:
+      - ./frontend:/app  # Mount local backend code into the container
+      - /app/node_modules  
 
 volumes:
   postgres:
 
 networks:
   transcendence:
+    driver: bridge
+
+
+# version: '3'
+# services:
+
+#   # Docker connection string: postgres://postgres:postgres@localhost:5432/
+
+#   postgres:
+#     image: postgres:latest
+#     container_name: postgres
+#     restart: always
+#     env_file:
+#       - ./backend/.env
+#     # environment:
+#     #   - POSTGRES_USER=postgres
+#     #   - POSTGRES_PASSWORD=postgres
+#     volumes:
+#       - postgres:/var/lib/postgresql/data
+#     ports:
+#       - '5432:5432'
+
+# volumes:
+#   postgres:

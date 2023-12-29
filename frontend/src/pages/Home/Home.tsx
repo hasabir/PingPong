@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
 import { Link } from 'react-router-dom';
 import CardFlip from '../../components/CardFlip';
+// import { stdout } from 'process';
+// import Cookies from 'universal-cookie';
 
 const Home = () => {
+
+  // const extractTokenFromCookies = () => {
+  //   const cookies = new Cookies();
+  //   const token = cookies.get('jwt');
+  //   return token;
+  // };
+
+  // useEffect(() => {
+  //   const token = extractTokenFromCookies(); // Extract the token when the component mounts
+  //   console.log('JWT Token:', token);
+  //   // You can use the token here for further operations, such as sending it in requests to the backend
+  // }, []);
+
+
     return (
     <>
         <div className="header_section">
@@ -37,25 +53,27 @@ const Home = () => {
 
         <div className="header_right">
         </div>
-        <div className='first_sec'> 
-          <CardFlip title="Versus Vibes" 
-			description1="1 vs 1 Duel" 
-			description2="Challenge a friend for an exciting one-on-one ping\
-				pong duel. Compete, laugh, and see who emerges as the true paddle\
-				champion" 
-			imageSrc="avatar1.png"
-			linkto={`/Game?gameTheme=Room&nickname=`} />//! add nickname here?
+        <div className='left_paper'> 
+            <h1>Versus Vibes</h1>
+            <p>1 vs 1 Duel</p>
+            <Link to="/Game?gameTheme=Room&nickname=">
+                <img src={process.env.PUBLIC_URL + '/vs.png'} alt="Versus Vibes" />
+            </Link>
         </div>
-        <div className='second_sec'> 
-          <CardFlip title="AI Showdown"
-		  	description1="1 vs Robot" 
-			description2="Take on the ultimate ping pong challenge against a \
-			formidable robot opponent. Can you outplay \
-			the machine and become the ping pong master?" 
-			imageSrc="robot3.gif" 
-			linkto={`/Game?gameTheme=Solo&nickname=`} /> </div>//! add nickname here?
-        <div className='last_sec'> 
-          <CardFlip title="Random Vibes" description1="Randomized Chaos" description2="Dive into the unpredictable world of Random mode. Expect the unexpected, adapt on the fly, and enjoy the chaotic fun of ping pong with a twist" imageSrc="random.png" linkto="/Game?gameTheme=Solo" /> 
+        <div className='middle_paper'> 
+          <h1>AI Showdown</h1>
+          <p>1 vs Robot</p>
+          <Link to="/Game?gameTheme=Solo&nickname=">
+            <img src={process.env.PUBLIC_URL + '/bot.png'} alt="AI Vibes"/>
+          </Link>
+      </div>
+        <div className='right_paper'> 
+          {/* <CardFlip title="Random Vibes" description1="Randomized Chaos" description2="Dive into the unpredictable world of Random mode. Expect the unexpected, adapt on the fly, and enjoy the chaotic fun of ping pong with a twist" imageSrc="dice.png" linkto="/Game?gameTheme=Solo" />  */}
+          <h1>Random Vibes</h1>
+          <p>Randomized Chaos</p>
+          <Link to="/Game?gameTheme=Solo">
+            <img src={process.env.PUBLIC_URL + '/dice.gif'} alt="Random Vibes"/>
+          </Link>
         </div>
     </>
   );

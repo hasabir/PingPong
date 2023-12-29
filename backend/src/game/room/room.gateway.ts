@@ -65,14 +65,14 @@ export class RoomGateway implements OnModuleInit, OnGatewayDisconnect{
 	}
 
 	@SubscribeMessage('JoinRoom')
-	handleJoinRoom(socket: Socket, {nickname, id}:{nickname: string, id: number}) : void{		
+	handleJoinRoom(socket: Socket, id: number) : void{		
 		let new_room: Room | undefined;
 		let new_room_id: string;
 
 		// this.roomService.printAllRooms();
 
 
-		this.roomService.joinRoom(socket.id, nickname, id);
+		this.roomService.joinRoom(socket.id, id);
 		
 		this.roomService.rooms.forEach((value, key) => {
 			new_room = value;

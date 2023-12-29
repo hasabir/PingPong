@@ -1,5 +1,5 @@
 export interface UserData {
-	id : string; //! need to be converted to int
+	id : number; //! need to be converted to int
 	socket_id: string; //! not sure if i need it anymore
 	isWaiting: boolean;
 	score: number;

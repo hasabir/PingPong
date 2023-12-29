@@ -2,13 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { Socket } from 'dgram';
 import { Ball, Canvas, Net, Paddle, Room, Status, UserData } from '../interfaces/game.interface';
 import { UserGameService } from '../user-game/user-game.service';
+import { profileServices } from 'src/auth/user_service';
 
 let i = 0;
 
 @Injectable()
 export class GameService {
+	constructor(private userGameService: UserGameService,
+		private ProfileServices: profileServices){}
 
-	constructor(private gameDataBase: UserGameService) {};
+	// constructor(private gameDataBase: UserGameService) {};
 
 
 	createNewPaddle(canvas: Canvas, x: number): Paddle {
@@ -197,7 +200,7 @@ export class GameService {
 	//   }
 	  
 
-	movePaddles(data: Room , id : string, direction: number){
+	movePaddles(data: Room , id : number, direction: number){
 		
 		if (data.user1.id == id){
 			data.user1.paddle = this.paddleCollision(data, data.user1.paddle, direction, true);
@@ -234,23 +237,54 @@ export class GameService {
 	// 			gameOver: false});		
 	// }
 
-
-	GameOver(room: Room, winner: number)
-	{
-		if (winner == 1)
-		{
-			room.user1.status = Status.Win; //! emit win
-			room.user2.status = Status.Lose; //! emit lose
-		}
-		else if (winner == 2)
-		{
-			room.user1.status = Status.Lose;
-			room.user2.status = Status.Win;
-		}
-		room.end = true;
-		room.gameOver = true;
-		return room;
+	async GameOver(room: Room, winner: number) {
+		try {
+			if (winner == 1) {
+				room.user1.status = Status.Win; //! emit win
+				room.user2.status = Status.Lose; //! emit lose
+				// Assuming getprofile returns a Promise
+				const profile = await this.userGameService.getprofile(room.user1.id);
+				console.log("Profile:", profile);
+				if (profile && profile.profileId) {
+					await this.ProfileServices.FirstGameAchievement(profile.profileId);
+				} else {
+					console.log('Profile or profileId not found.');
+				}
+			} else if (winner == 2) {
+				room.user1.status = Status.Lose;
+				room.user2.status = Status.Win;
+			}
+			room.end = true;
+			room.gameOver = true;
+			return room;
+			} catch (error) {
+				console.error('Failed to process game over:', error);
+				throw error; // Propagate the error to the caller
+			}
 	}
+	
+
+	// GameOver(room: Room, winner: number)
+	// {
+	// 	if (winner == 1)
+	// 	{
+	// 		// room.user1.id = 1;
+	// 		room.user1.status = Status.Win; //! emit win
+	// 		room.user2.status = Status.Lose; //! emit lose
+	// 		const profile = this.userGameService.getprofile(room.user1.id);
+	// 		console.log("proooooooooooooooooofile ", profile);
+	// 		this.ProfileServices.FirstGameAchievement(profile.profileId);
+	// 	}
+	// 	else if (winner == 2)
+	// 	{
+	// 		room.user1.status = Status.Lose;
+	// 		room.user2.status = Status.Win;
+	// 	}
+	// 	room.end = true;
+	// 	room.gameOver = true;
+	// 	return room;
+	// }
+
 
 	// movePaddleWithMouse(y: number, data: any, id: string)
 	// {

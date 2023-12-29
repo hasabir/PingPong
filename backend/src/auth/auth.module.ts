@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import {PrismaModule } from 'src/auth/prisma/prisma.module';
 import { env } from 'process';
 import { GameModule } from 'src/game/game.module';
-import { UserService } from './user_service';
+import { UserService, profileServices } from './user_service';
 // import { AuthModule } from './auth.module';
 // import { AuthModule } from './auth.module'; // Import the AuthModuauth
 @Module({
@@ -20,7 +20,7 @@ import { UserService } from './user_service';
     signOptions: { expiresIn: '864000s' },
   })], 
   controllers: [AuthController,ApiController],
-  providers: [AuthService,UserService,Token_Service, FortyTwoStrategy],
+  providers: [AuthService,UserService,Token_Service, FortyTwoStrategy,profileServices],
 })
 export class AuthModule {}
 

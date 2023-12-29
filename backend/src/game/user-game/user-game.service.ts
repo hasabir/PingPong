@@ -8,7 +8,7 @@ export class UserGameService {
 
     constructor(private prisma: PrismaService) {}
 
-    async getprofileId(userId : number){
+    async getprofile(userId : number){
         try{
             const profile = await this.prisma.profile.findFirst({
                 where:{
@@ -20,16 +20,17 @@ export class UserGameService {
                     profileId: true,
                 }
             });
-            return profile.profileId;
+            return profile;
         }
         catch(err){
             console.log(err.message);
+            throw err;
         }
     }
 
     async updateUserStatus(userId: number, st: 'online' | 'offline' | 'inGame'){ //!id status inGame
         try {
-            const id = await this.getprofileId(userId);
+            const id = (await this.getprofile(userId)).profileId;
 
             await this.prisma.profile.update({
                 where:{

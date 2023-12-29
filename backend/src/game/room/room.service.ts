@@ -10,11 +10,9 @@ export class RoomService {
 
 	constructor(private gameDataBase: UserGameService) {};
 
-
 	index = 0;
 	rooms = new Map<string, Room>();
 	soloData = new Map<string, Room>();
-
 
 	generateRoomName(): string{
 		return 'room_' + String(this.index++);
@@ -29,19 +27,19 @@ export class RoomService {
 		console.log("----------------------------------");
 	}
 
-	checkExistingUser(new_nickname: string, id: number): boolean {
-		console.log("iiiiiiiiiiiiiiiiiiiid ", id);
-		console.log("user status: ", this.gameDataBase.check_user_status(id));
+	checkExistingUser(new_id: number): boolean {
+		// console.log("iiiiiiiiiiiiiiiiiiiid ", id);
+		// console.log("user status: ", this.gameDataBase.check_user_status(id));
 		
 		for (const room of this.rooms.values()) {
 			if (
 				!room.end &&
 				((room.user1 !== null &&
 					typeof room.user1 !== 'undefined' &&
-					room.user1.id === new_nickname) ||
+					room.user1.id === new_id) ||
 				(room.user2 !== null &&
 					typeof room.user2 !== 'undefined' &&
-					room.user2.id === new_nickname))
+					room.user2.id === new_id))
 			)
 			{
 				return true;
@@ -56,8 +54,8 @@ export class RoomService {
 	//   }
 	  
 
-	joinRoom(clientId: string, nickname: string, id: number){
-		const updatedData: UserData = {id: nickname,
+	joinRoom(clientId: string, id: number){
+		const updatedData: UserData = {id: id,
 										socket_id: clientId, 
 										isWaiting: false,
 										score: 0};
@@ -72,7 +70,7 @@ export class RoomService {
 		// console.log(lastAddedRoom_Value);
 		if ((this.rooms.size === 0 
 			|| (this.rooms.size > 0 && lastAddedRoom_Value.user2))
-			&& this.checkExistingUser(updatedData.id, id) === false)
+			&& this.checkExistingUser(updatedData.id) === false)
 		{
 			console.log('I AM THE FIRST ONE');
 			const newRoomName = this.generateRoomName();
@@ -86,7 +84,7 @@ export class RoomService {
 			console.log('I AM THE SECOND ONE');
 			if (lastAddedRoom_Value.user1 && lastAddedRoom_Value.user2 === undefined
 				&& lastAddedRoom_Value.user1.id != updatedData.id
-				&& this.checkExistingUser(updatedData.id, id) === false)
+				&& this.checkExistingUser(updatedData.id) === false)
 					lastAddedRoom_Value.user2 = updatedData;
 					this.rooms.set(lastAddedRoom_Key, lastAddedRoom_Value);
 		}

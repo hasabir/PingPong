@@ -11,7 +11,8 @@ export class PrismaService extends PrismaClient
       super({
         datasources: {
           db: {
-              url : "postgres://postgres:postgres@localhost:5432/mydb",
+              // url : "postgres://postgres:postgres@localhost:5432/mydb",
+              url : "postgres://postgres:postgres@postgres:5432/mydb",
           },
         },
       }),

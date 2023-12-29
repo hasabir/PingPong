@@ -12,8 +12,8 @@ let stock:  string | null = null;
 const Game = () => {
 
 	const [data, setData] = useState({});
-	const [nickname, setNickname] = useState('');
-	const [id, setId] = useState('');
+	// const [nickname, setNickname] = useState('');
+	const [id, setId] = useState(1);
 	const socket = useWebSocketContext();
 	
 	
@@ -25,15 +25,17 @@ const Game = () => {
 
 	const fetchNickname = async () => {
 		try {
-		  const response = await axios.get('http://localhost:3000/api/nickname', {
+		  const response = await axios.get('http://localhost:3000/api/profile', {
 			withCredentials: true,
 		  });
   
 		//   const userNickname = response.data.nickname;
-		  setNickname('test');
-		//   setNickname(response.data.nickname);
-		//   setId(response.data.id);
-		  console.log("the user id is ======== ", response.data);
+		//   setNickname('test');st');
+		//   setNickname(response.data.user.nickname);
+		//   setNickname(response.data.user.nickname);
+		  setId(response.data.profileId);
+		  console.log("the user id is :", response.data.profileId);
+		//   console.log("the user nickname is :", response.data.user.nickname);
 		} catch (error) {
 		  console.error('Error fetching user nickname:', error);
 		}
@@ -46,13 +48,13 @@ const Game = () => {
 	{
 		console.log('i am solo');
 		stock = gameTheme;
-		socket.webSocket.emit('PlaySolo', {nickname, id});
+		socket.webSocket.emit('PlaySolo', id);
 	}
 	if (gameTheme === 'Room' && gameTheme != stock)
     {
 		console.log('i am room');
 		stock = gameTheme;
-		socket.webSocket.emit('JoinRoom', {nickname, id});
+		socket.webSocket.emit('JoinRoom', id);
 	}
 	
 	useEffect(() => {
@@ -141,10 +143,10 @@ return (
 	<div>
 		<div >
 			{/* <DeviceSelection /> */}
-			<Message data={data} socket={socket} nickname={nickname}/>
+			<Message data={data} socket={socket} id={id}/>
 		</div>
 		<center>
-			<GameSketch data={data} socket={socket} nickname={nickname}/>
+			<GameSketch data={data} socket={socket} id={id}/>
 		</center>
 	</div>
 );

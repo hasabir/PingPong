@@ -32,8 +32,8 @@ body, html {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  border: 1px solid #0e0e0e;
-  background: linear-gradient(180deg, rgba(16, 2, 54, 0.50) 0%, rgba(17, 2, 56, 0.00) 100%);
+  border: 1px solid rgba(45, 206, 148, 0.1);
+  background: linear-gradient(180deg, rgba(45, 206, 148, 0.3), rgba(18, 48, 86, 0.8));
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -47,9 +47,9 @@ body, html {
   height: 29vh;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  border: 1px solid #0e0e0e;
-  background: linear-gradient(180deg, rgba(16, 2, 54, 0.50) 0%, rgba(17, 2, 56, 0.00) 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(45, 206, 148, 0.1);
+  background: linear-gradient(180deg, rgba(45, 206, 148, 0.3), rgba(18, 48, 86, 0.8));
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding-bottom: 5%; 
   
@@ -68,6 +68,7 @@ body, html {
   align-items: center;
   margin: 0 auto;
   margin-top: 6%;
+  margin-left: 18%;
 }
 
 .edit-icon {
@@ -82,7 +83,7 @@ body, html {
   line-height: 1;
   font-family: 'Poppins';
   color: #ffffff;
-  text-shadow:  1px 1px 0 #6E107A, 1px 1px 0 #6E107A;
+  text-shadow:  -1px -1px 0 rgba(45, 206, 148, 0.2), 1px -1px 0 rgba(45, 206, 148, 0.2), -1px 1px 0 rgba(45, 206, 148, 0.2), 1px 1px 0 rgba(45, 206, 148, 0.2), 0 0 6px rgba(45, 206, 148, 0.2);
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -99,11 +100,11 @@ body, html {
   text-align: center;
   font-family: Montserrat;
   color: #746589;
-  text-shadow: 0px 0px 0px #845DC0, 0px 0px 0px #845DC0, 0px 0px 0px #845DC0, 0px 0px 0px #845DC0;
+  text-shadow: 0px 0px 0px rgba(45, 206, 148, 0.2), 0px 0px 0px rgba(45, 206, 148, 0.2), 0px 0px 0px rgba(45, 206, 148, 0.2), 0px 0px 0px rgba(45, 206, 148, 0.2);
   font-size: 15px;
   width: 19vw;
   height: 6vh;
-  background: linear-gradient(180deg, rgba(49, 35, 86, 0.5) 0%, rgba(49, 35, 86, 0.5) 100%);
+  background: linear-gradient(180deg, #11262d, #111d2f);
   border: 1px solid #000000;
   border-radius: 20px;
   margin: 0 auto;
@@ -139,7 +140,7 @@ body, html {
 
 
 .button-container button {
-  background-color: rgb(195, 41, 238); 
+  background-color: #2DCE94; 
   border-radius: 10px;
   color: #fff; 
   border: none;
@@ -150,7 +151,7 @@ body, html {
 }
 
 .button-container button:hover {
-  background-color: rgb(150, 31, 189);
+  background-color: rgba(45, 206, 148, 0.7);
 }
 
 
@@ -179,7 +180,7 @@ body, html {
   line-height: 1;
   font-family: 'Poppins';
   color: #ffffff;
-  text-shadow: 1px 1px 0 #6E107A, 1px 1px 0 #6E107A;
+  text-shadow: 1px 1px 0 rgba(45, 206, 148, 0.2), 1px 1px 0 rgba(45, 206, 148, 0.2);
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 600;
@@ -244,7 +245,7 @@ body, html {
 }
 
 .button-containers button {
-  background-color: rgb(195, 41, 238);
+  background-color: rgba(45, 206, 148, 0.5);
   border-radius: 10px;
   color: #fff;
   border: none;
@@ -255,6 +256,6 @@ body, html {
 }
 
 .button-containers button:hover {
-  background-color: rgb(150, 31, 189);
+  background-color: #2DCE94;
 }
 

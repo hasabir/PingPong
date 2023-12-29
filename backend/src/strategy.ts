@@ -24,6 +24,7 @@ export class FortyTwoStrategy extends PassportStrategy(Strategy, "42")
     user: any, // Adjust the type if needed
     done: (err: any, user: any, info?: any) => void): Promise<any> {
     try {
+      // console.log("//////////////////////////// ", user);
     // Assuming 'user' contains the OAuth data retrieved during authentication
     const newUser = await this.userService.createUserFromOAuth(user);
     // Assuming you want to pass the newly created user back for further handling

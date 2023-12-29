@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../../components/header';
 import './Landing.css';
 
 const Landing = () => {
@@ -8,14 +9,18 @@ const Landing = () => {
   };
 
   return (
-    <div className='background'>
-      <div className="logo-container">
-        <img className="logo_image" src={require('../../images/logo.png')} alt="ping_pong_logo" />
-        <button className="login-button" onClick={handleLogin}>
-          <span className="button-text">42 Login</span>
-        </button>
-      </div>
-      <img className="shadow-logo" src={require('../../images/shadow.png')} alt="_shadow" />
+    <div>
+        <img
+          className='overlay-image'
+          src={process.env.PUBLIC_URL + 'pngtree.jpg'}
+          alt='Overlay'
+        />
+          <div className="nickname-cmp">
+            <Header title="Welcome Please login !"/>
+            <button className="login-button" onClick={handleLogin}>
+              <span className="button-text">42 Login</span>
+            </button>
+          </div>
     </div>
   );
 };
